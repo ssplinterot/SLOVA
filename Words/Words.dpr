@@ -45,6 +45,13 @@ begin
 
 end;
 
+procedure change_registr(var s : string);
+begin
+  for var i := 1 to length(s) do
+    if (s[i] >= 'А') and (s[i] <= 'Я') then
+      s[i]:= Chr(Ord(s[i])+32)
+end;
+
 function checking_correct(S: string): boolean;
 var
   counter: integer;
@@ -77,6 +84,7 @@ begin
     Write('Введите исходную строку: ');
     readLn(Source);
   until (checking_correct(Source));
+  change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
@@ -87,6 +95,7 @@ begin
       readLn(S);
       if checking_correct(S) then
       begin
+        change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
         Score[i] := Score[i] + CurrScore[i];
         Writeln('Игрок ', i, ' получает ', CurrScore[i], ' очков');
