@@ -1,0 +1,35 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils;
+  const alphabet = 'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
+var s : string;
+function checking_correct (s:string): string;
+var
+counter : integer;
+begin
+for var index := 1 to length(s) do
+begin
+  if pos(s[index], alphabet) > 0  then
+  inc(counter);
+end;
+if counter = length(s) then
+  result := s
+else
+begin
+  writeln('Научись вводить русские слова)');
+  read(s);
+  checking_correct (s)
+end;
+end;
+
+
+begin
+readln(s);
+checking_correct (s);
+readln
+end.
