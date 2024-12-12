@@ -11,6 +11,19 @@ const
   alphabet =
     'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
 
+function GetScore(S, Source: string): integer;
+begin
+  result := 0;
+  for var i := 1 to Length(S) do
+    if Pos(S[i], Source) <> 0 then
+      Delete(Source, Pos(S[i], Source), 1)
+    else
+      Dec(result);
+  if result >= 0 then
+    result := Length(S);
+
+end;
+
 function checking_correct(S: string): boolean;
 var
   counter: integer;
