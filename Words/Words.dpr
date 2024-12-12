@@ -50,11 +50,6 @@ var
   counter: integer;
 begin
   counter := 0;
-  if S = '' then
-  begin
-    result := false;
-  end
-  else
   begin
     for var index := 1 to Length(S) do
     begin
@@ -99,5 +94,6 @@ begin
       Writeln('У ', i, ' игрока ', Score[i], ' очков');
     end;
   until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
+
   readLn;
 end.
