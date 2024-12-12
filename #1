@@ -12,6 +12,7 @@ function checking_correct (s:string): string;
 var
 counter : integer;
 begin
+counter:=0;
 for var index := 1 to length(s) do
 begin
   if pos(s[index], alphabet) > 0  then
