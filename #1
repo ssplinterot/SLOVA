@@ -12,25 +12,31 @@ function checking_correct (s:string): string;
 var
 counter : integer;
 begin
-counter:=0;
-for var index := 1 to length(s) do
-begin
-  if pos(s[index], alphabet) > 0  then
-  inc(counter);
-end;
-if counter = length(s) then
-  result := s
-else
-begin
-  writeln('Научись вводить русские слова)');
-  read(s);
-  checking_correct (s)
-end;
+  counter := 0;
+  if s = '' then
+  begin
+
+  end
+  else
+  begin
+    for var index := 1 to length(s) do
+    begin
+      if pos(s[index], alphabet) > 0 then
+        inc(counter);
+    end;
+    if counter = length(s) then
+      result := s
+    else
+    begin
+      writeln('Научись вводить русские слова)');
+      readLn(s);
+      checking_correct(s)
+    end;
+  end;
 end;
 
-
 begin
-readln(s);
-checking_correct (s);
-readln
+  readLn(s);
+  checking_correct(s);
+  readLn
 end.
