@@ -1,4 +1,4 @@
-program Words;
+﻿program Words;
 
 uses SysUtils;
 
@@ -100,6 +100,4 @@ begin
     end;
   until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
   readLn;
-
-// Change
 end.
