@@ -81,7 +81,7 @@ begin
     end;
   until PlayerCount in [2 .. 4];
   repeat
-    Write('Введите исходную строку: ');
+    Write('Введите исходную строку:                               ');
     readLn(Source);
   until (checking_correct(Source));
   change_registr(Source);
@@ -98,9 +98,9 @@ begin
         change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
         Score[i] := Score[i] + CurrScore[i];
-        Writeln('Игрок ', i, ' получает ', CurrScore[i], ' очков');
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       end;
-      Writeln('У ', i, ' игрока ', Score[i], ' очков');
+      Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
     end;
   until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
 
