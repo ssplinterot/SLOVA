@@ -98,7 +98,7 @@ begin
       end;
       Writeln('У ', i, ' игрока ', Score[i], ' очков');
     end;
-  until (CurrScore[1]=0);
+  until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
   readLn;
 
 // Change
