@@ -11,14 +11,14 @@ const
   alphabet =
     'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
 
-function checking_correct(S: string): string;
+function checking_correct(S: string): boolean;
 var
   counter: integer;
 begin
   counter := 0;
   if S = '' then
   begin
-
+    result := false;
   end
   else
   begin
@@ -28,12 +28,10 @@ begin
         inc(counter);
     end;
     if counter = length(S) then
-      result := S
+      result := true
     else
     begin
-      writeln('Научись вводить русские слова)');
-      readLn(S);
-      checking_correct(S)
+      result := false;
     end;
   end;
 end;
