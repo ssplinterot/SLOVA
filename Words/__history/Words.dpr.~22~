@@ -10,7 +10,7 @@ var
 
 const
   alphabet =
-    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
+    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя-';
 
 function GetScore(S, Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
@@ -86,24 +86,36 @@ begin
   repeat
     Write('Введите исходную строку:                               ');
     readLn(Source);
-  until (checking_correct(Source));
+    Source := Trim(Source);
+  until (Source <> '') and (checking_correct(Source));
   change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  for i := 1 to 4 do
+    CurrScore[i] := 1;
   repeat
-    for i := 1 to PlayerCount do
+    i := 1;
+    while (i <= PlayerCount) and (CurrScore[1] <> 0) and (CurrScore[2] <> 0) and
+      (CurrScore[3] <> 0) and (CurrScore[4] <> 0) do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
+      S := Trim(S);
       if checking_correct(S) then
       begin
         change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
-        Score[i] := Score[i] + CurrScore[i];
-        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
-      end;
+      end
+      else
+        CurrScore[i] := -Length(S);
+      Score[i] := Score[i] + CurrScore[i];
+      Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
+      if i < PlayerCount then
+        Inc(i)
+      else
+        i := 1;
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0);

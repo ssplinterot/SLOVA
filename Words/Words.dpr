@@ -92,8 +92,12 @@ begin
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  for i := 1 to PlayerCount do
+    CurrScore[i] := 1;
   repeat
-    for i := 1 to PlayerCount do
+    i := 1;
+    while (i <= PlayerCount) and not ((CurrScore[1] = 0) and(CurrScore[2] = 0) and
+      (CurrScore[3] = 0) and (CurrScore[4]= 0)) do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
@@ -108,6 +112,10 @@ begin
       Score[i] := Score[i] + CurrScore[i];
       Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
+      if i < PlayerCount then
+        Inc(i)
+      else
+        i := 1;
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0);
