@@ -48,7 +48,7 @@ end;
 procedure change_registr(var S: string);
 begin
   for var i := 1 to Length(S) do
-    if (S[i] >= 'А') and (S[i] <= 'Я') then
+    if S[i] in ['А'..'Я'] then
       S[i] := Chr(Ord(S[i]) + 32)
 end;
 
