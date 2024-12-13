@@ -1,9 +1,0 @@
-program Words;
-
-var
-  S: word;
-  PlayerCount: integer;
-
-begin
-
-end.

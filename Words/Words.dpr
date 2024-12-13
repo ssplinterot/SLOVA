@@ -10,7 +10,7 @@ var
 
 const
   alphabet =
-    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
+    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя-';
 
 function GetScore(S, Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
@@ -86,7 +86,7 @@ begin
   repeat
     Write('Введите исходную строку:                               ');
     readLn(Source);
-  until (checking_correct(Source));
+  until (Source<> '') and (checking_correct(Source));
   change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
