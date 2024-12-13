@@ -4,13 +4,13 @@ uses SysUtils;
 
 var
   S, Source: string;
-  PlayerCount, WordCount: integer;
+  PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   UsedWords: array of string;
 
 const
   alphabet =
-    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя';
+    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя-';
 
 function GetScore(S, Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
@@ -45,11 +45,19 @@ begin
 
 end;
 
+procedure change_registr(var S: string);
+begin
+  for var i := 1 to Length(S) do
+    if S[i] in ['А'..'Я'] then
+      S[i] := Chr(Ord(S[i]) + 32)
+end;
+
 function checking_correct(S: string): boolean;
 var
   counter: integer;
 begin
   counter := 0;
+
   begin
     for var index := 1 to Length(S) do
     begin
@@ -66,6 +74,8 @@ begin
 end;
 
 begin
+  var
+    i: integer;
   repeat
     try
       Write('Введите количество игроков: ');
@@ -74,26 +84,36 @@ begin
     end;
   until PlayerCount in [2 .. 4];
   repeat
-    Write('Введите исходную строку: ');
+    Write('Введите исходную строку:                               ');
     readLn(Source);
-  until (checking_correct(Source));
+  until (Source<> '') and (checking_correct(Source));
+  change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
   repeat
-    for var i := 1 to PlayerCount do
+    for i := 1 to PlayerCount do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
       if checking_correct(S) then
       begin
+        change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
         Score[i] := Score[i] + CurrScore[i];
-        Writeln('Игрок ', i, ' получает ', CurrScore[i], ' очков');
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       end;
-      Writeln('У ', i, ' игрока ', Score[i], ' очков');
+      Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
     end;
-  until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
+  until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
+    (CurrScore[4] = 0);
+  Max := 0;
+  for i := 1 to PlayerCount do
+    if Score[i] > Max then
+      Max := Score[i];
+  for i := 1 to PlayerCount do
+    if Score[i] = Max then
+      Writeln('Игрок ', i, ' победил!');
+  readLn;
 
-  readLn; //зщфыщсьщшыьсв
 end.

@@ -48,7 +48,7 @@ end;
 procedure change_registr(var S: string);
 begin
   for var i := 1 to Length(S) do
-    if S[i] in ['А'..'Я'] then
+    if S[i] in ['А' .. 'Я'] then
       S[i] := Chr(Ord(S[i]) + 32)
 end;
 
@@ -86,7 +86,8 @@ begin
   repeat
     Write('Введите исходную строку:                               ');
     readLn(Source);
-  until (Source<> '') and (checking_correct(Source));
+    Source := Trim(Source);
+  until (Source <> '') and (checking_correct(Source));
   change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
@@ -96,13 +97,16 @@ begin
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
+      S := Trim(S);
       if checking_correct(S) then
       begin
         change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
-        Score[i] := Score[i] + CurrScore[i];
-        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
-      end;
+      end
+      else
+        CurrScore[i] := -Length(S);
+      Score[i] := Score[i] + CurrScore[i];
+      Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
