@@ -4,7 +4,7 @@ uses SysUtils;
 
 var
   S, Source: string;
-  PlayerCount, WordCount: integer;
+  PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   UsedWords: array of string;
 
@@ -45,11 +45,11 @@ begin
 
 end;
 
-procedure change_registr(var s : string);
+procedure change_registr(var S: string);
 begin
-  for var i := 1 to length(s) do
-    if (s[i] >= 'А') and (s[i] <= 'Я') then
-      s[i]:= Chr(Ord(s[i])+32)
+  for var i := 1 to Length(S) do
+    if (S[i] >= 'А') and (S[i] <= 'Я') then
+      S[i] := Chr(Ord(S[i]) + 32)
 end;
 
 function checking_correct(S: string): boolean;
@@ -57,6 +57,7 @@ var
   counter: integer;
 begin
   counter := 0;
+
   begin
     for var index := 1 to Length(S) do
     begin
@@ -73,6 +74,8 @@ begin
 end;
 
 begin
+  var
+    i: integer;
   repeat
     try
       Write('Введите количество игроков: ');
@@ -89,7 +92,7 @@ begin
   UsedWords[0] := Source;
   WordCount := 1;
   repeat
-    for var i := 1 to PlayerCount do
+    for i := 1 to PlayerCount do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
@@ -102,7 +105,15 @@ begin
       end;
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
     end;
-  until (CurrScore[1]=0) and (CurrScore[2]=0) and (CurrScore[3]=0) and (CurrScore[4]=0);
-
+  until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
+    (CurrScore[4] = 0);
+  Max := 0;
+  for i := 1 to PlayerCount do
+    if Score[i] > Max then
+      Max := Score[i];
+  for i := 1 to PlayerCount do
+    if Score[i] = Max then
+      Writeln('Игрок ', i, ' победил!');
   readLn;
+
 end.
