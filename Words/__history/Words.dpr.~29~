@@ -1,8 +1,10 @@
-ï»¿program Words;
+program Words;
 
 uses SysUtils;
 
 var
+  Dictionary: TextFile;
+  Potato: String;
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
@@ -10,7 +12,7 @@ var
 
 const
   alphabet =
-    'ÐÐ°Ð‘Ð±Ð’Ð²Ð“Ð³Ð”Ð´Ð•ÐµÐÑ‘Ð–Ð¶Ð—Ð·Ð˜Ð¸Ð™Ð¹ÐšÐºÐ›Ð»ÐœÐ¼ÐÐ½ÐžÐ¾ÐŸÐ¿Ð Ñ€Ð¡ÑÐ¢Ñ‚Ð£ÑƒÐ¤Ñ„Ð¥Ñ…Ð¦Ñ†Ð§Ñ‡Ð¨ÑˆÐ©Ñ‰ÐªÑŠÐ¬ÑŒÐ«Ñ‹Ð­ÑÐ®ÑŽÐ¯Ñ-';
+    'ÀàÁáÂâÃãÄäÅå¨¸ÆæÇçÈèÉéÊêËëÌìÍíÎîÏïÐðÑñÒòÓóÔôÕõÖö×÷ØøÙùÚúÜüÛûÝýÞþßÿ-';
 
 function GetScore(S, Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
@@ -45,10 +47,20 @@ begin
 
 end;
 
+procedure GetDictionary(var Dictionary: string; Name: string);
+var
+  Txt: TextFile;
+begin
+  AssignFile(Txt, Name);
+  Reset(Txt);
+  Read(Txt, Dictionary);
+  Dictionary := UTF8ToAnsi(Dictionary);
+end;
+
 procedure change_registr(var S: string);
 begin
   for var i := 1 to Length(S) do
-    if S[i] in ['Ð' .. 'Ð¯'] then
+    if (S[i] >= 'À') and (S[i] <= 'ß') then
       S[i] := Chr(Ord(S[i]) + 32)
 end;
 
@@ -76,38 +88,48 @@ end;
 begin
   var
     i: integer;
+  write((Potato), ' ');
+  writeln;
   repeat
     try
-      Write('Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¸Ð³Ñ€Ð¾ÐºÐ¾Ð²: ');
+      Write('Ââåäèòå êîëè÷åñòâî èãðîêîâ: ');
       readLn(PlayerCount);
     except
     end;
   until PlayerCount in [2 .. 4];
   repeat
-    Write('Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð¾ÐºÑƒ:                               ');
+    Write('Ââåäèòå èñõîäíóþ ñòðîêó:                               ');
     readLn(Source);
+    Source := Trim(Source);
   until (Source <> '') and (checking_correct(Source));
-  S := Trim(S);
   change_registr(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  for i := 1 to PlayerCount do
+    CurrScore[i] := 1;
   repeat
-    for i := 1 to PlayerCount do
+    i := 1;
+    while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
+      and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
-      Write('Ð¡Ð»Ð¾Ð²Ð¾ Ð¸Ð³Ñ€Ð¾ÐºÐ° ', i, ': ');
+      Write('Ñëîâî èãðîêà ', i, ': ');
       readLn(S);
+      S := Trim(S);
       if checking_correct(S) then
       begin
-        S := Trim(S);
         change_registr(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
       end
       else
         CurrScore[i] := -Length(S);
       Score[i] := Score[i] + CurrScore[i];
-      Writeln('Ð˜Ð³Ñ€Ð¾Ðº ', i:3, ' Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÑ‚ ', CurrScore[i], ' Ð¾Ñ‡ÐºÐ¾Ð²');
-      Writeln('Ð£     ', i:3, ' Ð¸Ð³Ñ€Ð¾ÐºÐ°   ', Score[i], ' Ð¾Ñ‡ÐºÐ¾Ð²');
+      writeln('Èãðîê ', i:3, ' ïîëó÷àåò ', CurrScore[i], ' î÷êîâ');
+      writeln('Ó     ', i:3, ' èãðîêà   ', Score[i], ' î÷êîâ');
+      if i < PlayerCount then
+        Inc(i)
+      else
+        i := 1;
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0);
@@ -117,7 +139,7 @@ begin
       Max := Score[i];
   for i := 1 to PlayerCount do
     if Score[i] = Max then
-      Writeln('Ð˜Ð³Ñ€Ð¾Ðº ', i, ' Ð¿Ð¾Ð±ÐµÐ´Ð¸Ð»!');
+      writeln('Èãðîê ', i, ' ïîáåäèë!');
   readLn;
 
 end.

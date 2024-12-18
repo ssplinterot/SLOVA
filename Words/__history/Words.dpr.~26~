@@ -3,6 +3,8 @@
 uses SysUtils;
 
 var
+  Dictionary: TextFile;
+  Potato: AnsiString;
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
@@ -76,6 +78,11 @@ end;
 begin
   var
     i: integer;
+  AssignFile(Dictionary, 'Dictionary.txt');
+  Reset(Dictionary);
+  read(Dictionary, Potato);
+  for i := 1 to Length(Potato) do
+    write(Ord(Potato[i]),' ');
   repeat
     try
       Write('Введите количество игроков: ');
@@ -92,10 +99,12 @@ begin
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  for i := 1 to PlayerCount do
+    CurrScore[i] := 1;
   repeat
     i := 1;
-    while (i <= PlayerCount) and (CurrScore[1] <> 0) and (CurrScore[2] <> 0) and
-      (CurrScore[3] <> 0) and (CurrScore[4] <> 0) do
+    while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
+      and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
@@ -110,6 +119,10 @@ begin
       Score[i] := Score[i] + CurrScore[i];
       Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
+      if i < PlayerCount then
+        Inc(i)
+      else
+        i := 1;
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0);
