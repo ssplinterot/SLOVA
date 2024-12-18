@@ -3,6 +3,8 @@
 uses SysUtils;
 
 var
+  Dictionary: TextFile;
+  Potato: AnsiString;
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
@@ -76,6 +78,11 @@ end;
 begin
   var
     i: integer;
+  AssignFile(Dictionary, 'Dictionary.txt');
+  Reset(Dictionary);
+  read(Dictionary, Potato);
+  for i := 1 to Length(Potato) do
+    write(Ord(Potato[i]),' ');
   repeat
     try
       Write('Введите количество игроков: ');
@@ -96,8 +103,8 @@ begin
     CurrScore[i] := 1;
   repeat
     i := 1;
-    while (i <= PlayerCount) and not ((CurrScore[1] = 0) and(CurrScore[2] = 0) and
-      (CurrScore[3] = 0) and (CurrScore[4]= 0)) do
+    while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
+      and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
       Write('Слово игрока ', i, ': ');
       readLn(S);
