@@ -100,7 +100,7 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray,1800000);
+  SetLength(DictionaryArray,1532629);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
   WriteLn(DictionaryArray[5]);
   repeat
