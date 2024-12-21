@@ -104,7 +104,7 @@ begin
   end;
 end;
 
-function GetScore(S, Source: string; var UsedWords: array of string;
+function GetScore(var S: string; Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
 var
   Flag: boolean;
@@ -122,7 +122,10 @@ begin
     result := 0;
     for i := 1 to Length(S) do
       if Pos(S[i], Source) <> 0 then
-        Delete(Source, Pos(S[i], Source), 1)
+      begin
+        Delete(Source, Pos(S[i], Source), 1);
+        S[i] := Chr(Ord(S[i]) - 32);
+      end
       else
         Dec(result);
     if result = 0 then
@@ -172,15 +175,12 @@ begin
       Write('Слово игрока ', i, ': ');
       Readln(S);
       S := Trim(S);
-      if checking_correct(S) then
-      begin
-        S := ChangeRegister(S);
-        CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
-      end
-      else
-        CurrScore[i] := -Length(S);
+      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
       Score[i] := Score[i] + CurrScore[i];
-      Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
+      if CurrScore[i] > 0 then
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков')
+      else
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков  ', S);
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
       if i < PlayerCount then
         Inc(i)
