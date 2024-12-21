@@ -162,9 +162,19 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
+<<<<<<<< Updated upstream:Words/__history/Words.dpr.~60~
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
   Source := GetRandomWord(Dictionary, 10);
+========
+  SetLength(DictionaryArray, DictSize);
+  GetDictionary(DictionaryArray, 'Dictionary.txt');
+  repeat
+    Write('¬ведите исходную строку:                               ');
+    Readln(Source);
+    Source := Trim(Source);
+  until (Source <> '') and (checking_correct(Source));
+>>>>>>>> Stashed changes:Words/__history/Words.dpr.~58~
   Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;

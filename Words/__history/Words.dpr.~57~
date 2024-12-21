@@ -44,11 +44,15 @@ begin
   result := S;
 end;
 
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
 function CheckWord(var Dictionary: array of string; Word: string): boolean;
 ========
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
 >>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
+=======
+function CheckWord(const Dictionary: array of string; Word: string): boolean;
+>>>>>>> Stashed changes
 var
   Place, Step: integer;
   DebugWord: string;
@@ -108,8 +112,11 @@ begin
   end;
 end;
 
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
 ========
+=======
+>>>>>>> Stashed changes
 function GetRandomWord(const Dictionary: array of string;
   MinLength: integer): string;
 var
@@ -124,7 +131,10 @@ begin
     Number := Number + i;
 end;
 
+<<<<<<< Updated upstream
 >>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
+=======
+>>>>>>> Stashed changes
 function GetScore(S, Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
 var
@@ -170,6 +180,7 @@ begin
   until PlayerCount in [2 .. 4];
   SetLength(DictionaryArray, DictSize);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
   while true do
   begin
@@ -182,13 +193,18 @@ begin
     Writeln(CheckWord(DictionaryArray, Source));
   end;
 ========
+=======
+>>>>>>> Stashed changes
   repeat
     Write('¬ведите исходную строку:                               ');
     Readln(Source);
     Source := Trim(Source);
   until (Source <> '') and (checking_correct(Source));
   Source := ChangeRegister(Source);
+<<<<<<< Updated upstream
 >>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
+=======
+>>>>>>> Stashed changes
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;

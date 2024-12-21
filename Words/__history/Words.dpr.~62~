@@ -164,8 +164,12 @@ begin
   until PlayerCount in [2 .. 4];
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
+<<<<<<<< Updated upstream:Words/__history/Words.dpr.~62~
   Randomize;
   Source := GetRandomWord(Dictionary, 15);
+========
+  Source := GetRandomWord(Dictionary, 10);
+>>>>>>>> Stashed changes:Words/__history/Words.dpr.~61~
   Writeln('Ваше исходное слово: ', Source);
   Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));

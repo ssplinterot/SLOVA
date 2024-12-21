@@ -104,9 +104,6 @@ begin
   end;
 end;
 
-<<<<<<< Updated upstream
-function GetScore(var S: string; Source: string; var UsedWords: array of string;
-=======
 function GetRandomWord(const Dictionary: array of string;
   MinLength: integer): string;
 var
@@ -128,7 +125,6 @@ begin
 end;
 
 function GetScore(S, Source: string; var UsedWords: array of string;
->>>>>>> Stashed changes
   var WordCount: integer): integer;
 var
   Flag: boolean;
