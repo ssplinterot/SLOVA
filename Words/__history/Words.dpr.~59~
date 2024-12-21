@@ -1,4 +1,4 @@
-program Words;
+ï»¿program Words;
 
 uses SysUtils;
 
@@ -13,7 +13,7 @@ var
 
 const
   alphabet =
-    'ÀàÁáÂâÃãÄäÅå¨¸ÆæÇçÈèÉéÊêËëÌìÍíÎîÏïĞğÑñÒòÓóÔôÕõÖö×÷ØøÙùÚúÜüÛûİıŞşßÿ-';
+    'ĞĞ°Ğ‘Ğ±Ğ’Ğ²Ğ“Ğ³Ğ”Ğ´Ğ•ĞµĞÑ‘Ğ–Ğ¶Ğ—Ğ·Ğ˜Ğ¸Ğ™Ğ¹ĞšĞºĞ›Ğ»ĞœĞ¼ĞĞ½ĞĞ¾ĞŸĞ¿Ğ Ñ€Ğ¡ÑĞ¢Ñ‚Ğ£ÑƒĞ¤Ñ„Ğ¥Ñ…Ğ¦Ñ†Ğ§Ñ‡Ğ¨ÑˆĞ©Ñ‰ĞªÑŠĞ¬ÑŒĞ«Ñ‹Ğ­ÑĞ®ÑĞ¯Ñ-';
 
 procedure GetDictionary(var Dictionary: array of string; Name: string);
 var
@@ -35,20 +35,16 @@ function ChangeRegister(S: string): string;
 begin
   for var i := 1 to Length(S) do
   begin
-    if (S[i] >= 'À') and (S[i] <= 'ß') then
+    if (S[i] >= 'Ğ') and (S[i] <= 'Ğ¯') then
       S[i] := Chr(Ord(S[i]) + 32)
-    else if (S[i] = '¸') or (S[i] = '¨') then
-      S[i] := 'å';
+    else if (S[i] = 'Ñ‘') or (S[i] = 'Ğ') then
+      S[i] := 'Ğµ';
 
   end;
   result := S;
 end;
 
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~54~
-function CheckWord(var Dictionary: array of string; Word: string): boolean;
-========
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~58~
 var
   Place, Step: integer;
   DebugWord: string;
@@ -108,9 +104,6 @@ begin
   end;
 end;
 
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~54~
-function GetScore(var S: string; Source: string; var UsedWords: array of string;
-========
 function GetRandomWord(const Dictionary: array of string;
   MinLength: integer): string;
 var
@@ -127,7 +120,6 @@ begin
 end;
 
 function GetScore(S, Source: string; var UsedWords: array of string;
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~58~
   var WordCount: integer): integer;
 var
   Flag: boolean;
@@ -145,14 +137,7 @@ begin
     result := 0;
     for i := 1 to Length(S) do
       if Pos(S[i], Source) <> 0 then
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~54~
-        begin
-        Delete(Source, Pos(S[i], Source), 1);
-        S[i] := Chr(Ord(S[i])-32);
-        end
-========
         Delete(Source, Pos(S[i], Source), 1)
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~58~
       else
         Dec(result);
     if result = 0 then
@@ -171,7 +156,7 @@ begin
     i: integer;
   PlayerCount := 0;
   repeat
-    Write('Ââåäèòå êîëè÷åñòâî èãğîêîâ (2-4): ');
+    Write('Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ ĞºĞ¾Ğ»Ğ¸Ñ‡ĞµÑÑ‚Ğ²Ğ¾ Ğ¸Ğ³Ñ€Ğ¾ĞºĞ¾Ğ² (2-4): ');
     try
       Readln(PlayerCount);
     except
@@ -179,25 +164,8 @@ begin
   until PlayerCount in [2 .. 4];
   SetLength(DictionaryArray, DictSize);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~54~
-  while true do
-  begin
-    repeat
-      Write('Ââåäèòå èñõîäíóş ñòğîêó:                               ');
-      Readln(Source);
-      Source := Trim(Source);
-    until (Source <> '') and (checking_correct(Source));
-    Source := ChangeRegister(Source);
-    Writeln(CheckWord(DictionaryArray, Source));
-  end;
-========
-  repeat
-    Write('Ââåäèòå èñõîäíóş ñòğîêó:                               ');
-    Readln(Source);
-    Source := Trim(Source);
-  until (Source <> '') and (checking_correct(Source));
+  Source:= GetRandomWord(Dictionary);
   Source := ChangeRegister(Source);
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~58~
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
@@ -208,7 +176,7 @@ begin
     while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
       and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
-      Write('Ñëîâî èãğîêà ', i, ': ');
+      Write('Ğ¡Ğ»Ğ¾Ğ²Ğ¾ Ğ¸Ğ³Ñ€Ğ¾ĞºĞ° ', i, ': ');
       Readln(S);
       S := Trim(S);
       if checking_correct(S) then
@@ -219,8 +187,8 @@ begin
       else
         CurrScore[i] := -Length(S);
       Score[i] := Score[i] + CurrScore[i];
-      Writeln('Èãğîê ', i:3, ' ïîëó÷àåò ', CurrScore[i], ' î÷êîâ');
-      Writeln('Ó     ', i:3, ' èãğîêà   ', Score[i], ' î÷êîâ');
+      Writeln('Ğ˜Ğ³Ñ€Ğ¾Ğº ', i:3, ' Ğ¿Ğ¾Ğ»ÑƒÑ‡Ğ°ĞµÑ‚ ', CurrScore[i], ' Ğ¾Ñ‡ĞºĞ¾Ğ²');
+      Writeln('Ğ£     ', i:3, ' Ğ¸Ğ³Ñ€Ğ¾ĞºĞ°   ', Score[i], ' Ğ¾Ñ‡ĞºĞ¾Ğ²');
       if i < PlayerCount then
         Inc(i)
       else
@@ -234,7 +202,7 @@ begin
       Max := Score[i];
   for i := 1 to PlayerCount do
     if Score[i] = Max then
-      Writeln('Èãğîê ', i, ' ïîáåäèë!');
+      Writeln('Ğ˜Ğ³Ñ€Ğ¾Ğº ', i, ' Ğ¿Ğ¾Ğ±ĞµĞ´Ğ¸Ğ»!');
   Readln;
 
 end.

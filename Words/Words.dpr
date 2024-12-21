@@ -9,7 +9,7 @@ var
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
-  DictionaryArray, UsedWords: array of string;
+  Dictionary, UsedWords: array of string;
 
 const
   alphabet =
@@ -44,7 +44,7 @@ begin
   result := S;
 end;
 
-function CheckWord(var Dictionary: array of string; Word: string): boolean;
+function CheckWord(const Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
   DebugWord: string;
@@ -80,7 +80,7 @@ begin
     end;
     if Dictionary[Place] = Word then
       result := true
-  end;
+  end
 end;
 
 function checking_correct(S: string): boolean;
@@ -104,7 +104,31 @@ begin
   end;
 end;
 
+<<<<<<< Updated upstream
 function GetScore(var S: string; Source: string; var UsedWords: array of string;
+=======
+function GetRandomWord(const Dictionary: array of string;
+  MinLength: integer): string;
+var
+  Number, i: integer;
+begin
+  if MinLength < 30 then
+  begin
+    Number := Random(Length(Dictionary));
+    if Number > Length(Dictionary) then
+      i := -1
+    else
+      i := 1;
+    while Length(Dictionary[Number]) < MinLength do
+      Number := Number + i;
+    result := Dictionary[Number];
+  end
+  else
+    result := 'Нет-таких-больших-слов-кринжуля';
+end;
+
+function GetScore(S, Source: string; var UsedWords: array of string;
+>>>>>>> Stashed changes
   var WordCount: integer): integer;
 var
   Flag: boolean;
@@ -117,7 +141,7 @@ begin
       Flag := false;
     Inc(i);
   until (not Flag) or (i = WordCount);
-  if Flag and CheckWord(DictionaryArray, S) then
+  if Flag and CheckWord(Dictionary, S) then
   begin
     result := 0;
     for i := 1 to Length(S) do
@@ -150,18 +174,12 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray, DictSize);
-  GetDictionary(DictionaryArray, 'Dictionary.txt');
-  while true do
-  begin
-    repeat
-      Write('Введите исходную строку:                               ');
-      Readln(Source);
-      Source := Trim(Source);
-    until (Source <> '') and (checking_correct(Source));
-    Source := ChangeRegister(Source);
-    Writeln(CheckWord(DictionaryArray, Source));
-  end;
+  SetLength(Dictionary, DictSize);
+  GetDictionary(Dictionary, 'Dictionary.txt');
+  Randomize;
+  Source := GetRandomWord(Dictionary, 20);
+  Writeln('Ваше исходное слово: ', Source);
+  Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
