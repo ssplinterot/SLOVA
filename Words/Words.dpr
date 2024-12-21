@@ -2,6 +2,9 @@ program Words;
 
 uses SysUtils;
 
+const
+  DictSize = 1532629;
+
 var
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
@@ -61,6 +64,28 @@ begin
   Dictionary := Dictionary;
 end;
 
+function CheckWord(var Dictionary: array of string; Word: string): boolean;
+var
+  Place, Step: integer;
+begin
+  Step := Length(Dictionary) div 2;
+  Place := Step;
+  repeat
+    if Dictionary[Place] = Word then
+    result:=true
+    else
+      begin
+      Step:=step div 2;
+      if Dictionary[Place]>Word then
+      Place:= Place-step;
+      else
+      Place:=Place+step;
+      end;
+
+
+  until result or (Step = 1);
+end;
+
 procedure change_registr(var S: string);
 begin
   for var i := 1 to Length(S) do
@@ -100,7 +125,7 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray,1532629);
+  SetLength(DictionaryArray, DictSize);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
   repeat
     Write('¬ведите исходную строку:                               ');
