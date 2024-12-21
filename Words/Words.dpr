@@ -124,7 +124,7 @@ begin
     result := 'Нет-таких-больших-слов-кринжуля';
 end;
 
-function GetScore(S, Source: string; var UsedWords: array of string;
+function GetScore(var S: string; Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
 var
   Flag: boolean;
@@ -173,7 +173,7 @@ begin
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
   Randomize;
-  Source := GetRandomWord(Dictionary, 20);
+  Source := GetRandomWord(Dictionary, 10);
   Writeln('Ваше исходное слово: ', Source);
   Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
