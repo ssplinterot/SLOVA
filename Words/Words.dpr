@@ -34,8 +34,13 @@ end;
 function ChangeRegister(S: string): string;
 begin
   for var i := 1 to Length(S) do
+  begin
     if (S[i] >= 'À') and (S[i] <= 'ß') then
-      S[i] := Chr(Ord(S[i]) + 32);
+      S[i] := Chr(Ord(S[i]) + 32)
+    else if (S[i] = '¸') or (S[i] = '¨') then
+      S[i] := 'å';
+
+  end;
   result := S;
 end;
 
