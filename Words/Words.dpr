@@ -132,31 +132,38 @@ var
 begin
   i := 0;
   Flag := true;
-  repeat
-    if UsedWords[i] = S then
-      Flag := false;
-    Inc(i);
-  until (not Flag) or (i = WordCount);
-  if Flag and CheckWord(Dictionary, S) then
+  if S = '' then
   begin
     result := 0;
-    for i := 1 to Length(S) do
-      if Pos(S[i], Source) <> 0 then
-      begin
-        Delete(Source, Pos(S[i], Source), 1);
-        S[i] := Chr(Ord(S[i]) - 32);
-      end
-      else
-        Dec(result);
-    if result = 0 then
-    begin
-      result := Length(S);
-      UsedWords[WordCount] := S;
-      Inc(WordCount);
-    end;
   end
   else
-    result := -Length(S);
+  begin
+    repeat
+      if UsedWords[i] = S then
+        Flag := false;
+      Inc(i);
+    until (not Flag) or (i = WordCount);
+    if Flag and CheckWord(Dictionary, S) then
+    begin
+      result := 0;
+      for i := 1 to Length(S) do
+        if Pos(S[i], Source) <> 0 then
+        begin
+          Delete(Source, Pos(S[i], Source), 1);
+          S[i] := Chr(Ord(S[i]) - 32);
+        end
+        else
+          Dec(result);
+      if result = 0 then
+      begin
+        result := Length(S);
+        UsedWords[WordCount] := S;
+        Inc(WordCount);
+      end;
+    end
+    else
+      result := -Length(S);
+  end;
 end;
 
 begin

@@ -9,7 +9,7 @@ var
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
-  DictionaryArray, UsedWords: array of string;
+  Dictionary, UsedWords: array of string;
 
 const
   alphabet =
@@ -44,15 +44,7 @@ begin
   result := S;
 end;
 
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
-function CheckWord(var Dictionary: array of string; Word: string): boolean;
-========
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
-=======
-function CheckWord(const Dictionary: array of string; Word: string): boolean;
->>>>>>> Stashed changes
 var
   Place, Step: integer;
   DebugWord: string;
@@ -88,7 +80,7 @@ begin
     end;
     if Dictionary[Place] = Word then
       result := true
-  end;
+  end
 end;
 
 function checking_correct(S: string): boolean;
@@ -112,30 +104,27 @@ begin
   end;
 end;
 
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
-========
-=======
->>>>>>> Stashed changes
 function GetRandomWord(const Dictionary: array of string;
   MinLength: integer): string;
 var
   Number, i: integer;
 begin
-  Number := Random(Length(Dictionary));
-  if Number > Length(Dictionary) then
-    i := -1
+  if MinLength < 30 then
+  begin
+    Number := Random(Length(Dictionary));
+    if Number > Length(Dictionary) then
+      i := -1
+    else
+      i := 1;
+    while Length(Dictionary[Number]) < MinLength do
+      Number := Number + i;
+    result := Dictionary[Number];
+  end
   else
-    i := 1;
-  while Length(Dictionary[Number]) < MinLength do
-    Number := Number + i;
+    result := 'Нет-таких-больших-слов-кринжуля';
 end;
 
-<<<<<<< Updated upstream
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
-=======
->>>>>>> Stashed changes
-function GetScore(S, Source: string; var UsedWords: array of string;
+function GetScore(var S: string; Source: string; var UsedWords: array of string;
   var WordCount: integer): integer;
 var
   Flag: boolean;
@@ -148,12 +137,15 @@ begin
       Flag := false;
     Inc(i);
   until (not Flag) or (i = WordCount);
-  if Flag and CheckWord(DictionaryArray, S) then
+  if Flag and CheckWord(Dictionary, S) then
   begin
     result := 0;
     for i := 1 to Length(S) do
       if Pos(S[i], Source) <> 0 then
-        Delete(Source, Pos(S[i], Source), 1)
+      begin
+        Delete(Source, Pos(S[i], Source), 1);
+        S[i] := Chr(Ord(S[i]) - 32);
+      end
       else
         Dec(result);
     if result = 0 then
@@ -178,33 +170,12 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray, DictSize);
-  GetDictionary(DictionaryArray, 'Dictionary.txt');
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:Words/__history/Words.dpr.~53~
-  while true do
-  begin
-    repeat
-      Write('Введите исходную строку:                               ');
-      Readln(Source);
-      Source := Trim(Source);
-    until (Source <> '') and (checking_correct(Source));
-    Source := ChangeRegister(Source);
-    Writeln(CheckWord(DictionaryArray, Source));
-  end;
-========
-=======
->>>>>>> Stashed changes
-  repeat
-    Write('Введите исходную строку:                               ');
-    Readln(Source);
-    Source := Trim(Source);
-  until (Source <> '') and (checking_correct(Source));
+  SetLength(Dictionary, DictSize);
+  GetDictionary(Dictionary, 'Dictionary.txt');
+  Randomize;
+  Source := GetRandomWord(Dictionary, 10);
+  Writeln('Ваше исходное слово: ', Source);
   Source := ChangeRegister(Source);
-<<<<<<< Updated upstream
->>>>>>>> Stashed changes:Words/__history/Words.dpr.~57~
-=======
->>>>>>> Stashed changes
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
@@ -218,15 +189,12 @@ begin
       Write('Слово игрока ', i, ': ');
       Readln(S);
       S := Trim(S);
-      if checking_correct(S) then
-      begin
-        S := ChangeRegister(S);
-        CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
-      end
-      else
-        CurrScore[i] := -Length(S);
+      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
       Score[i] := Score[i] + CurrScore[i];
-      Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
+      if CurrScore[i] > 0 then
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков')
+      else
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков  ', S);
       Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
       if i < PlayerCount then
         Inc(i)
