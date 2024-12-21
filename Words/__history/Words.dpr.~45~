@@ -2,8 +2,11 @@ program Words;
 
 uses SysUtils;
 
+const
+  DictSize = 1532629;
+
 var
-  S, Dictionary, Source: string;
+  S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   DictionaryArray, UsedWords: array of string;
@@ -50,15 +53,36 @@ var
   Txt: TextFile;
   i: integer;
 begin
-  i := 0;
   AssignFile(Txt, Name);
   Reset(Txt);
+  i := 0;
   while not EOF(Txt) do
   begin
     Readln(Txt, Dictionary[i]);
     Inc(i);
   end;
   Dictionary := Dictionary;
+end;
+
+function CheckWord(var Dictionary: array of string; Word: string): boolean;
+var
+  Place, Step: integer;
+begin
+  Step := Length(Dictionary) div 2;
+  Place := Step;
+  repeat
+    if Dictionary[Place] = Word then
+      result := true
+    else
+    begin
+      Step := Step div 2;
+      if Dictionary[Place] > Word then
+        Place := Place - Step
+      else
+        Place := Place + Step;
+    end;
+
+  until result or (Step = 1);
 end;
 
 procedure change_registr(var S: string);
@@ -100,8 +124,8 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  GetDictionary(Dictionary, 'Dictionary.txt');
-  WriteLn(Dictionary);
+  SetLength(DictionaryArray, DictSize);
+  GetDictionary(DictionaryArray, 'Dictionary.txt');
   repeat
     Write('¬ведите исходную строку:                               ');
     Readln(Source);

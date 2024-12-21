@@ -64,33 +64,33 @@ begin
   Dictionary := Dictionary;
 end;
 
+function ChangeRegister(S: string): string;
+begin
+  for var i := 1 to Length(S) do
+    if (S[i] >= 'À') and (S[i] <= 'ß') then
+      S[i] := Chr(Ord(S[i]) + 32);
+  result := S;
+end;
+
 function CheckWord(var Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
 begin
+  result := false;
   Step := Length(Dictionary) div 2;
   Place := Step;
   repeat
     if Dictionary[Place] = Word then
-    result:=true
+      result := true
     else
-      begin
-      Step:=step div 2;
-      if Dictionary[Place]>Word then
-      Place:= Place-step;
+    begin
+      Step := Step div 2;
+      if ChangeRegister(Dictionary[Place]) > Word then
+        Place := Place - Step
       else
-      Place:=Place+step;
-      end;
-
-
+        Place := Place + Step;
+    end;
   until result or (Step = 1);
-end;
-
-procedure change_registr(var S: string);
-begin
-  for var i := 1 to Length(S) do
-    if (S[i] >= 'À') and (S[i] <= 'ß') then
-      S[i] := Chr(Ord(S[i]) + 32)
 end;
 
 function checking_correct(S: string): boolean;
@@ -132,7 +132,7 @@ begin
     Readln(Source);
     Source := Trim(Source);
   until (Source <> '') and (checking_correct(Source));
-  change_registr(Source);
+  Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
@@ -148,7 +148,7 @@ begin
       S := Trim(S);
       if checking_correct(S) then
       begin
-        change_registr(S);
+        S := ChangeRegister(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
       end
       else
