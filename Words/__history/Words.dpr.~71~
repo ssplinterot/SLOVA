@@ -1,4 +1,4 @@
-п»їprogram Words;
+program Words;
 
 uses SysUtils;
 
@@ -9,11 +9,12 @@ var
   S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
-  DictionaryArray, UsedWords: array of string;
+  Dictionary, UsedWords: array of string;
+  Code: byte;
 
 const
   alphabet =
-    'РђР°Р‘Р±Р’РІР“РіР”РґР•РµРЃС‘Р–Р¶Р—Р·РРёР™Р№РљРєР›Р»РњРјРќРЅРћРѕРџРїР СЂРЎСЃРўС‚РЈСѓР¤С„РҐС…Р¦С†Р§С‡РЁС€Р©С‰РЄСЉР¬СЊР«С‹Р­СЌР®СЋРЇСЏ-';
+    'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЬьЫыЭэЮюЯя-';
 
 procedure GetDictionary(var Dictionary: array of string; Name: string);
 var
@@ -35,10 +36,10 @@ function ChangeRegister(S: string): string;
 begin
   for var i := 1 to Length(S) do
   begin
-    if (S[i] >= 'Рђ') and (S[i] <= 'РЇ') then
+    if (S[i] >= 'А') and (S[i] <= 'Я') then
       S[i] := Chr(Ord(S[i]) + 32)
-    else if (S[i] = 'С‘') or (S[i] = 'РЃ') then
-      S[i] := 'Рµ';
+    else if (S[i] = 'ё') or (S[i] = 'Ё') then
+      S[i] := 'е';
 
   end;
   result := S;
@@ -80,7 +81,7 @@ begin
     end;
     if Dictionary[Place] = Word then
       result := true
-  end;
+  end
 end;
 
 function checking_correct(S: string): boolean;
@@ -109,46 +110,65 @@ function GetRandomWord(const Dictionary: array of string;
 var
   Number, i: integer;
 begin
-  Number := Random(Length(Dictionary));
-  if Number > Length(Dictionary) then
-    i := -1
+  if MinLength < 30 then
+  begin
+    Number := Random(Length(Dictionary));
+    if Number > Length(Dictionary) then
+      i := -1
+    else
+      i := 1;
+    while Length(Dictionary[Number]) < MinLength do
+      Number := Number + i;
+    result := Dictionary[Number];
+  end
   else
-    i := 1;
-  while Length(Dictionary[Number]) < MinLength do
-    Number := Number + i;
-  result := Dictionary[Number];
+    result := 'Нет-таких-больших-слов-кринжуля';
 end;
 
-function GetScore(S, Source: string; var UsedWords: array of string;
-  var WordCount: integer): integer;
+function GetScore(var S: string; Source: string; var UsedWords: array of string; //Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - не те буквы
+  var WordCount: integer; var Code: byte): integer;
 var
   Flag: boolean;
   i: integer;
 begin
   i := 0;
   Flag := true;
-  repeat
-    if UsedWords[i] = S then
-      Flag := false;
-    Inc(i);
-  until (not Flag) or (i = WordCount);
-  if Flag and CheckWord(DictionaryArray, S) then
+  if S = '' then
   begin
     result := 0;
-    for i := 1 to Length(S) do
-      if Pos(S[i], Source) <> 0 then
-        Delete(Source, Pos(S[i], Source), 1)
-      else
-        Dec(result);
-    if result = 0 then
-    begin
-      result := Length(S);
-      UsedWords[WordCount] := S;
-      Inc(WordCount);
-    end;
+    Code:= 1;
   end
   else
-    result := -Length(S);
+  begin
+    repeat
+      if UsedWords[i] = S then
+      begin
+        Flag := false;
+        Code:=3;
+      end;
+      Inc(i);
+    until (not Flag) or (i = WordCount);
+    if Flag and CheckWord(Dictionary, S) then
+    begin
+      result := 0;
+      for i := 1 to Length(S) do
+        if Pos(S[i], Source) <> 0 then
+        begin
+          Delete(Source, Pos(S[i], Source), 1);
+          S[i] := Chr(Ord(S[i]) - 32);
+        end
+        else
+          Dec(result);
+      if result = 0 then
+      begin
+        result := Length(S);
+        UsedWords[WordCount] := S;
+        Inc(WordCount);
+      end;
+    end
+    else
+      result := -Length(S);
+  end;
 end;
 
 begin
@@ -156,15 +176,17 @@ begin
     i: integer;
   PlayerCount := 0;
   repeat
-    Write('Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РёРіСЂРѕРєРѕРІ (2-4): ');
+    Write('Введите количество игроков (2-4): ');
     try
       Readln(PlayerCount);
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray, DictSize);
-  GetDictionary(DictionaryArray, 'Dictionary.txt');
-  Source:= GetRandomWord(Dictionary);
+  SetLength(Dictionary, DictSize);
+  GetDictionary(Dictionary, 'Dictionary.txt');
+  Randomize;
+  Source := GetRandomWord(Dictionary, 10);
+  Writeln('Ваше исходное слово: ', Source);
   Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
@@ -176,19 +198,16 @@ begin
     while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
       and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
-      Write('РЎР»РѕРІРѕ РёРіСЂРѕРєР° ', i, ': ');
+      Write('Слово игрока ', i, ': ');
       Readln(S);
       S := Trim(S);
-      if checking_correct(S) then
-      begin
-        S := ChangeRegister(S);
-        CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
-      end
-      else
-        CurrScore[i] := -Length(S);
+      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount, Code);
       Score[i] := Score[i] + CurrScore[i];
-      Writeln('РРіСЂРѕРє ', i:3, ' РїРѕР»СѓС‡Р°РµС‚ ', CurrScore[i], ' РѕС‡РєРѕРІ');
-      Writeln('РЈ     ', i:3, ' РёРіСЂРѕРєР°   ', Score[i], ' РѕС‡РєРѕРІ');
+      if CurrScore[i] > 0 then
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков')
+      else
+        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков  ', S);
+      Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
       if i < PlayerCount then
         Inc(i)
       else
@@ -202,7 +221,7 @@ begin
       Max := Score[i];
   for i := 1 to PlayerCount do
     if Score[i] = Max then
-      Writeln('РРіСЂРѕРє ', i, ' РїРѕР±РµРґРёР»!');
+      Writeln('Игрок ', i, ' победил!');
   Readln;
 
 end.

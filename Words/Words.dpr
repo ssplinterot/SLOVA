@@ -10,6 +10,7 @@ var
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   Dictionary, UsedWords: array of string;
+  Code: byte;
 
 const
   alphabet =
@@ -47,7 +48,6 @@ end;
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
-  DebugWord: string;
 begin
   result := false;
   Step := Length(Dictionary) div 2;
@@ -58,7 +58,6 @@ begin
     else
     begin
       Step := (Step div 2) + 1;
-      DebugWord := Dictionary[Place];
       if ChangeRegister(Dictionary[Place]) > Word then
         Place := Place - Step
       else
@@ -72,7 +71,6 @@ begin
       result := true
     else
     begin
-      DebugWord := Dictionary[Place];
       if ChangeRegister(Dictionary[Place]) > Word then
         Place := Place - Step
       else
@@ -81,27 +79,6 @@ begin
     if Dictionary[Place] = Word then
       result := true
   end
-end;
-
-function checking_correct(S: string): boolean;
-var
-  counter: integer;
-begin
-  counter := 0;
-
-  begin
-    for var index := 1 to Length(S) do
-    begin
-      if Pos(S[index], alphabet) > 0 then
-        Inc(counter);
-    end;
-    if counter = Length(S) then
-      result := true
-    else
-    begin
-      result := false;
-    end;
-  end;
 end;
 
 function GetRandomWord(const Dictionary: array of string;
@@ -125,7 +102,8 @@ begin
 end;
 
 function GetScore(var S: string; Source: string; var UsedWords: array of string;
-  var WordCount: integer): integer;
+  // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - не те буквы
+  var WordCount: integer; var Code: byte): integer;
 var
   Flag: boolean;
   i: integer;
@@ -135,12 +113,16 @@ begin
   if S = '' then
   begin
     result := 0;
+    Code := 1;
   end
   else
   begin
     repeat
       if UsedWords[i] = S then
+      begin
         Flag := false;
+        Code := 3;
+      end;
       Inc(i);
     until (not Flag) or (i = WordCount);
     if Flag and CheckWord(Dictionary, S) then
@@ -153,7 +135,10 @@ begin
           S[i] := Chr(Ord(S[i]) - 32);
         end
         else
+        begin
           Dec(result);
+          Code := 4;
+        end;
       if result = 0 then
       begin
         result := Length(S);
@@ -162,13 +147,17 @@ begin
       end;
     end
     else
+    begin
       result := -Length(S);
+      if Flag then
+        Code := 2;
+    end;
   end;
 end;
 
 begin
   var
-    i: integer;
+    i, j: integer;
   PlayerCount := 0;
   repeat
     Write('Введите количество игроков (2-4): ');
@@ -196,17 +185,36 @@ begin
       Write('Слово игрока ', i, ': ');
       Readln(S);
       S := Trim(S);
-      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
+      S := ChangeRegister(S);
+      Code := 0;
+      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount, Code);
       Score[i] := Score[i] + CurrScore[i];
-      if CurrScore[i] > 0 then
-        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков')
-      else
-        Writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков  ', S);
-      Writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
+      case Code of
+        0:
+          Writeln('Игрок ', i, ' получает ', CurrScore[i], ' очков');
+          // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - не те буквы
+        1:
+          Writeln('Игрок ', i, ' пропускает ход');
+        2:
+          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
+            ' очков: такого слова не существует');
+        3:
+          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
+            ' очков: это слово уже использовалось');
+        4:
+          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
+            ' очков: слово содержит неправильные буквы: ', S);
+      end;
       if i < PlayerCount then
         Inc(i)
       else
+      begin
         i := 1;
+        Write('Очки: ');
+        for j := 1 to PlayerCount do
+          Write(Score[j], ' ');
+        Writeln;
+      end
     end;
   until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0);
