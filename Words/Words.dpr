@@ -15,39 +15,6 @@ const
   alphabet =
     'ÀàÁáÂâÃãÄäÅå¨¸ÆæÇçÈèÉéÊêËëÌìÍíÎîÏïĞğÑñÒòÓóÔôÕõÖö×÷ØøÙùÚúÜüÛûİıŞşßÿ-';
 
-function GetScore(S, Source: string; var UsedWords: array of string;
-  var WordCount: integer): integer;
-var
-  Flag: boolean;
-  i: integer;
-begin
-  i := 0;
-  Flag := true;
-  repeat
-    if UsedWords[i] = S then
-      Flag := false;
-    Inc(i);
-  until (not Flag) or (i = WordCount);
-  if Flag then
-  begin
-    result := 0;
-    for i := 1 to Length(S) do
-      if Pos(S[i], Source) <> 0 then
-        Delete(Source, Pos(S[i], Source), 1)
-      else
-        Dec(result);
-    if result = 0 then
-    begin
-      result := Length(S);
-      UsedWords[WordCount] := S;
-      Inc(WordCount);
-    end;
-  end
-  else
-    result := -Length(S);
-
-end;
-
 procedure GetDictionary(var Dictionary: array of string; Name: string);
 var
   Txt: TextFile;
@@ -112,6 +79,38 @@ begin
       result := false;
     end;
   end;
+end;
+
+function GetScore(S, Source: string; var UsedWords: array of string;
+  var WordCount: integer): integer;
+var
+  Flag: boolean;
+  i: integer;
+begin
+  i := 0;
+  Flag := true;
+  repeat
+    if UsedWords[i] = S then
+      Flag := false;
+    Inc(i);
+  until (not Flag) or (i = WordCount);
+  if Flag and CheckWord(DictionaryArray, S) then
+  begin
+    result := 0;
+    for i := 1 to Length(S) do
+      if Pos(S[i], Source) <> 0 then
+        Delete(Source, Pos(S[i], Source), 1)
+      else
+        Dec(result);
+    if result = 0 then
+    begin
+      result := Length(S);
+      UsedWords[WordCount] := S;
+      Inc(WordCount);
+    end;
+  end
+  else
+    result := -Length(S);
 end;
 
 begin

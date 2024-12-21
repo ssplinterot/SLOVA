@@ -2,8 +2,11 @@ program Words;
 
 uses SysUtils;
 
+const
+  DictSize = 1532629;
+
 var
-  S, DictionaryI, Source: string;
+  S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   DictionaryArray, UsedWords: array of string;
@@ -50,9 +53,9 @@ var
   Txt: TextFile;
   i: integer;
 begin
-  i := 0;
   AssignFile(Txt, Name);
   Reset(Txt);
+  i := 0;
   while not EOF(Txt) do
   begin
     Readln(Txt, Dictionary[i]);
@@ -61,11 +64,33 @@ begin
   Dictionary := Dictionary;
 end;
 
-procedure change_registr(var S: string);
+function ChangeRegister(S: string): string;
 begin
   for var i := 1 to Length(S) do
     if (S[i] >= 'А') and (S[i] <= 'Я') then
-      S[i] := Chr(Ord(S[i]) + 32)
+      S[i] := Chr(Ord(S[i]) + 32);
+  result := S;
+end;
+
+function CheckWord(var Dictionary: array of string; Word: string): boolean;
+var
+  Place, Step: integer;
+begin
+  result := false;
+  Step := Length(Dictionary) div 2;
+  Place := Step;
+  repeat
+    if Dictionary[Place] = Word then
+      result := true
+    else
+    begin
+      Step := Step div 2;
+      if ChangeRegister(Dictionary[Place]) > Word then
+        Place := Place - Step
+      else
+        Place := Place + Step;
+    end;
+  until result or (Step = 1);
 end;
 
 function checking_correct(S: string): boolean;
@@ -100,15 +125,14 @@ begin
     except
     end
   until PlayerCount in [2 .. 4];
-  SetLength(DictionaryArray,1800000);
+  SetLength(DictionaryArray, DictSize);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
-  WriteLn(DictionaryArray[5]);
   repeat
     Write('Введите исходную строку:                               ');
     Readln(Source);
     Source := Trim(Source);
   until (Source <> '') and (checking_correct(Source));
-  change_registr(Source);
+  Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
@@ -124,7 +148,7 @@ begin
       S := Trim(S);
       if checking_correct(S) then
       begin
-        change_registr(S);
+        S := ChangeRegister(S);
         CurrScore[i] := GetScore(S, Source, UsedWords, WordCount);
       end
       else
