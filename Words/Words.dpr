@@ -3,7 +3,7 @@ program Words;
 uses SysUtils;
 
 var
-  S, DictionaryI, Source: string;
+  S, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
   DictionaryArray, UsedWords: array of string;
@@ -50,9 +50,9 @@ var
   Txt: TextFile;
   i: integer;
 begin
-  i := 0;
   AssignFile(Txt, Name);
   Reset(Txt);
+  i := 0;
   while not EOF(Txt) do
   begin
     Readln(Txt, Dictionary[i]);
@@ -102,7 +102,6 @@ begin
   until PlayerCount in [2 .. 4];
   SetLength(DictionaryArray,1532629);
   GetDictionary(DictionaryArray, 'Dictionary.txt');
-  WriteLn(DictionaryArray[5]);
   repeat
     Write('¬ведите исходную строку:                               ');
     Readln(Source);

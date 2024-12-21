@@ -3,12 +3,10 @@ program Words;
 uses SysUtils;
 
 var
-  Dictionary: TextFile;
-  Potato: String;
-  S, Source: string;
+  S, DictionaryI, Source: string;
   PlayerCount, WordCount, Max: integer;
   Score, CurrScore: array [1 .. 4] of integer;
-  UsedWords: array of string;
+  DictionaryArray, UsedWords: array of string;
 
 const
   alphabet =
@@ -47,14 +45,20 @@ begin
 
 end;
 
-procedure GetDictionary(var Dictionary: string; Name: string);
+procedure GetDictionary(var Dictionary: array of string; Name: string);
 var
   Txt: TextFile;
+  i: integer;
 begin
   AssignFile(Txt, Name);
   Reset(Txt);
-  Read(Txt, Dictionary);
-  Dictionary := UTF8ToAnsi(Dictionary);
+  i := 0;
+  while not EOF(Txt) do
+  begin
+    Readln(Txt, Dictionary[i]);
+    Inc(i);
+  end;
+  Dictionary := Dictionary;
 end;
 
 procedure change_registr(var S: string);
@@ -88,18 +92,20 @@ end;
 begin
   var
     i: integer;
-  write((Potato), ' ');
-  writeln;
+  PlayerCount := 0;
   repeat
+    Write('Введите количество игроков (2-4): ');
     try
-      Write('Введите количество игроков: ');
-      readLn(PlayerCount);
+      Readln(PlayerCount);
     except
-    end;
+    end
   until PlayerCount in [2 .. 4];
+  SetLength(DictionaryArray,1532629);
+  GetDictionary(DictionaryArray, 'Dictionary.txt');
+  WriteLn(DictionaryArray[5]);
   repeat
     Write('Введите исходную строку:                               ');
-    readLn(Source);
+    Readln(Source);
     Source := Trim(Source);
   until (Source <> '') and (checking_correct(Source));
   change_registr(Source);
@@ -114,7 +120,7 @@ begin
       and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
     begin
       Write('Слово игрока ', i, ': ');
-      readLn(S);
+      Readln(S);
       S := Trim(S);
       if checking_correct(S) then
       begin
@@ -124,8 +130,8 @@ begin
       else
         CurrScore[i] := -Length(S);
       Score[i] := Score[i] + CurrScore[i];
-      writeln('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
-      writeln('У     ', i:3, ' игрока   ', Score[i], ' очков');
+      WriteLn('Игрок ', i:3, ' получает ', CurrScore[i], ' очков');
+      WriteLn('У     ', i:3, ' игрока   ', Score[i], ' очков');
       if i < PlayerCount then
         Inc(i)
       else
@@ -139,7 +145,7 @@ begin
       Max := Score[i];
   for i := 1 to PlayerCount do
     if Score[i] = Max then
-      writeln('Игрок ', i, ' победил!');
-  readLn;
+      WriteLn('Игрок ', i, ' победил!');
+  Readln;
 
 end.
