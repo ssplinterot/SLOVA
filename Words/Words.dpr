@@ -142,7 +142,7 @@ begin
       if result = 0 then
       begin
         result := Length(S);
-        UsedWords[WordCount] := S;
+        UsedWords[WordCount] := ChangeRegister(S);
         Inc(WordCount);
       end;
     end
@@ -168,7 +168,7 @@ begin
   until PlayerCount in [2 .. 4];
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
-  Randomize;
+  //Randomize;
   Source := GetRandomWord(Dictionary, 10);
   Writeln('Ваше исходное слово: ', Source);
   Source := ChangeRegister(Source);
