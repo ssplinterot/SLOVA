@@ -53,7 +53,7 @@ begin
   Step := Length(Dictionary) div 2;
   Place := Step;
   repeat
-    if Dictionary[Place] = Word then
+    if ChangeRegister(Dictionary[Place]) = Word then
       result := true
     else
     begin
