@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.291,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.684,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.839,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Project6.dproj=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\ProjectINTERF.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.486,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameForm_PROJECT.pas=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameFormUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.831,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Interface_PROJECT2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.803,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.901,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Interface_PROJECT.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.120,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.782,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameForm_PROJECT.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.505,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.924,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.486,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameForm_PROJECT.fmx=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameFormUnit.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.831,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Interface_PROJECT2.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.901,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Interface_PROJECT.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.782,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\Unit2.fmx=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GameForm_PROJECT.fmx</Transaction>
+    <Transaction>2024.12.23 19:44:11.217,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Interface_PROJECT2.pas=</Transaction>
+    <Transaction>2024.12.23 19:44:34.940,=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Unit1.pas</Transaction>
+    <Transaction>2024.12.23 19:48:13.852,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\SecondUnit.pas=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Unit1.pas</Transaction>
+    <Transaction>2024.12.23 19:48:13.852,C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\SecondUnit.fmx=C:\Users\Маргарита.DESKTOP-47UIQCE\OneDrive\Документы\Embarcadero\Studio\Projects\GitCom\Unit1.fmx</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Interface_PROJECT.pas"/>
+    <File Path="Interface_PROJECT.fmx"/>
+    <File Path="SecondUnit.pas"/>
+    <File Path="SecondUnit.fmx"/>
+  </ProjectSortOrder>
+</BorlandProject>
