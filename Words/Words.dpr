@@ -29,7 +29,6 @@ begin
     Readln(Txt, Dictionary[i]);
     Inc(i);
   end;
-  Dictionary := Dictionary;
 end;
 
 function ChangeRegister(S: string): string;
