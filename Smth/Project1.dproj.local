@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.237,C:\Users\Арсений\Desktop\Smth\Smth.pas=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.291,C:\Users\Арсений\Desktop\Smth\startGame.pas=C:\Users\Арсений\Desktop\Smth\Unit4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.503,C:\Users\Арсений\Desktop\Smth\GameMenu.fmx=C:\Users\Арсений\Desktop\Smth\Smth2.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.488,C:\Users\Арсений\Desktop\Smth\Unit1.fmx=C:\Users\Арсений\Desktop\Smth\Smth4.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.684,C:\Users\Арсений\Desktop\Smth\PlayersSelector.fmx=C:\Users\Арсений\Desktop\Smth\Smth4.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.854,C:\Users\Арсений\Desktop\Smth\MainForm.fmx=C:\Users\Арсений\Desktop\Smth\Smth.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.223,=C:\Users\Арсений\Desktop\Smth\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.298,C:\Users\Арсений\Desktop\Smth\Smth2.pas=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.065,=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.425,=C:\Users\Арсений\Desktop\Smth\Unit4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.488,C:\Users\Арсений\Desktop\Smth\Unit1.pas=C:\Users\Арсений\Desktop\Smth\Smth4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.635,=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.581,C:\Users\Арсений\Desktop\Smth\Project1.dproj=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.871,=C:\Users\Арсений\Desktop\SLOVA\Smth\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.865,C:\Users\Арсений\Desktop\Smth\Smth3.pas=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.237,C:\Users\Арсений\Desktop\Smth\Smth.fmx=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.865,C:\Users\Арсений\Desktop\Smth\Smth3.fmx=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit3.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.253,C:\Users\Арсений\Desktop\Smth\Help.pas=C:\Users\Арсений\Desktop\Smth\Smth3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.291,C:\Users\Арсений\Desktop\Smth\startGame.fmx=C:\Users\Арсений\Desktop\Smth\Unit4.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.253,C:\Users\Арсений\Desktop\Smth\Help.fmx=C:\Users\Арсений\Desktop\Smth\Smth3.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.503,C:\Users\Арсений\Desktop\Smth\GameMenu.pas=C:\Users\Арсений\Desktop\Smth\Smth2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.854,C:\Users\Арсений\Desktop\Smth\MainForm.pas=C:\Users\Арсений\Desktop\Smth\Smth.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.684,C:\Users\Арсений\Desktop\Smth\PlayersSelector.pas=C:\Users\Арсений\Desktop\Smth\Smth4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.298,C:\Users\Арсений\Desktop\Smth\Smth2.fmx=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.979,=C:\Users\Арсений\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024.12.27 00:28:00.356,C:\Users\Арсений\Desktop\SLOVA\Smth\Slova.exe.dproj=C:\Users\Арсений\Desktop\SLOVA\Smth\Project1.dproj</Transaction>
+    <Transaction>2024.12.27 00:28:27.101,C:\Users\Арсений\Desktop\SLOVA\Smth\Project1.dproj=C:\Users\Арсений\Desktop\SLOVA\Smth\Slova.exe.dproj</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="MainForm.pas"/>
+    <File Path="MainForm.fmx"/>
+    <File Path="GameMenu.pas"/>
+    <File Path="GameMenu.fmx"/>
+    <File Path="Help.pas"/>
+    <File Path="Help.fmx"/>
+    <File Path="PlayersSelector.pas"/>
+    <File Path="PlayersSelector.fmx"/>
+    <File Path="startGame.pas"/>
+    <File Path="startGame.fmx"/>
+  </ProjectSortOrder>
+</BorlandProject>
