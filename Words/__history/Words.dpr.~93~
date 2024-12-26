@@ -29,7 +29,6 @@ begin
     Readln(Txt, Dictionary[i]);
     Inc(i);
   end;
-  Dictionary := Dictionary;
 end;
 
 function ChangeRegister(S: string): string;
@@ -45,6 +44,19 @@ begin
   result := S;
 end;
 
+function CheckRusstWord(s: string):boolean;
+var numright: integer;
+begin
+  numright := 0;
+  for var i := 1 to length(s) do
+    if pos(s[i], alphabet) > 0 then
+      inc(numright);
+  if numright = length(s) then
+    result := true
+  else
+    result := false;
+end;
+
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
@@ -53,7 +65,7 @@ begin
   Step := Length(Dictionary) div 2;
   Place := Step;
   repeat
-    if Dictionary[Place] = Word then
+    if ChangeRegister(Dictionary[Place]) = Word then
       result := true
     else
     begin
@@ -102,13 +114,12 @@ begin
 end;
 
 function GetScore(var S: string; Source: string; var UsedWords: array of string;
-  //  оды: 0 - всЄ ок, 1 - пуста€ строка, 2 - слова не существует, 3 - повторка, 4 - не те буквы
+  //  оды: 0 - всЄ ок, 1 - пуста€ строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
   var WordCount: integer; var Code: byte): integer;
 var
   Flag: boolean;
   i: integer;
 begin
-  i := 0;
   Flag := true;
   if S = '' then
   begin
@@ -117,14 +128,22 @@ begin
   end
   else
   begin
-    repeat
-      if UsedWords[i] = S then
+    i := 1;
+    if UsedWords[0] = S then
+    begin
+      Flag := false;
+      Code := 4;
+    end
+    else
+      while Flag and (i <= WordCount) do
       begin
-        Flag := false;
-        Code := 3;
+        if UsedWords[i] = S then
+        begin
+          Flag := false;
+          Code := 3;
+        end;
+        Inc(i);
       end;
-      Inc(i);
-    until (not Flag) or (i = WordCount);
     if Flag and CheckWord(Dictionary, S) then
     begin
       result := 0;
@@ -137,12 +156,12 @@ begin
         else
         begin
           Dec(result);
-          Code := 4;
+          Code := 5;
         end;
       if result = 0 then
       begin
         result := Length(S);
-        UsedWords[WordCount] := S;
+        UsedWords[WordCount] := ChangeRegister(S);
         Inc(WordCount);
       end;
     end
@@ -192,7 +211,7 @@ begin
       case Code of
         0:
           Writeln('»грок ', i, ' получает ', CurrScore[i], ' очков');
-          //  оды: 0 - всЄ ок, 1 - пуста€ строка, 2 - слова не существует, 3 - повторка, 4 - не те буквы
+          //  оды: 0 - всЄ ок, 1 - пуста€ строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
         1:
           Writeln('»грок ', i, ' пропускает ход');
         2:
@@ -202,6 +221,9 @@ begin
           Writeln('»грок ', i, ' тер€ет ', -CurrScore[i],
             ' очков: это слово уже использовалось');
         4:
+          Writeln('»грок ', i, ' тер€ет ', -CurrScore[i],
+            ' очков: это изначальное слово');
+        5:
           Writeln('»грок ', i, ' тер€ет ', -CurrScore[i],
             ' очков: слово содержит неправильные буквы: ', S);
       end;

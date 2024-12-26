@@ -44,6 +44,19 @@ begin
   result := S;
 end;
 
+function CheckRussWord(s: string):boolean;
+var numright: integer;
+begin
+  numright := 0;
+  for var i := 1 to length(s) do
+    if pos(s[i], alphabet) > 0 then
+      inc(numright);
+  if numright = length(s) then
+    result := true
+  else
+    result := false;
+end;
+
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
@@ -108,7 +121,7 @@ var
   i: integer;
 begin
   Flag := true;
-  if S = '' then
+  if (S = '') or not CheckRussWord(s) then
   begin
     result := 0;
     Code := 1;
