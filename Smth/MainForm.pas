@@ -299,6 +299,7 @@ procedure TForm1.Frame11Button1Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
+  PlayerCount:=3;
   GameStart;
 end;
 
@@ -306,6 +307,7 @@ procedure TForm1.Frame11Button2Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
+  PlayerCount:=2;
   GameStart;
 end;
 
@@ -313,6 +315,7 @@ procedure TForm1.Frame11Button3Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
+  PlayerCount:=4;
   GameStart;
 end;
 

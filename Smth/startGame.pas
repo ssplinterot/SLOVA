@@ -10,10 +10,13 @@ uses
 type
   TGameFrame = class(TFrame)
     Edit1: TEdit;
-    Scores: TLabel;
+    Score1: TLabel;
     Player: TLabel;
     SourceWord: TLabel;
     SourceLabel: TLabel;
+    Score2: TLabel;
+    Score3: TLabel;
+    Label1: TLabel;
   private
     { Private declarations }
   public

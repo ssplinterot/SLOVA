@@ -15,18 +15,20 @@ object GameFrame: TGameFrame
     TextPrompt = #1042#1074#1077#1076#1080#1090#1077' '#1089#1083#1086#1074#1086'...'
     StyledSettings = [Style, FontColor]
   end
-  object Scores: TLabel
-    StyledSettings = [Style, FontColor]
+  object Score1: TLabel
+    Anchors = [akLeft, akBottom]
+    StyledSettings = [Style]
     Position.X = 8.000000000000000000
-    Position.Y = 288.000000000000000000
-    Size.Width = 49.000000000000000000
+    Position.Y = 277.000000000000000000
+    Size.Width = 73.000000000000000000
     Size.Height = 48.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Family = 'Arial'
     TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.FontColor = claTomato
     TextSettings.HorzAlign = Center
-    Text = '10'
-    TabOrder = 4
+    Text = '100'
+    TabOrder = 7
   end
   object Player: TLabel
     StyledSettings = [Style, FontColor]
@@ -67,5 +69,50 @@ object GameFrame: TGameFrame
     TextSettings.HorzAlign = Center
     Text = #1042#1072#1096#1077' '#1089#1083#1086#1074#1086':'
     TabOrder = 1
+  end
+  object Score2: TLabel
+    Anchors = [akLeft, akBottom]
+    StyledSettings = [Style]
+    Position.X = 193.000000000000000000
+    Position.Y = 277.000000000000000000
+    Size.Width = 73.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.FontColor = claRoyalblue
+    TextSettings.HorzAlign = Center
+    Text = '100'
+    TabOrder = 6
+  end
+  object Score3: TLabel
+    Anchors = [akLeft, akBottom]
+    StyledSettings = [Style]
+    Position.X = 559.000000000000000000
+    Position.Y = 277.000000000000000000
+    Size.Width = 73.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.FontColor = claGold
+    TextSettings.HorzAlign = Center
+    Text = '100'
+    TabOrder = 5
+  end
+  object Label1: TLabel
+    Anchors = [akLeft, akBottom]
+    StyledSettings = [Style]
+    Position.X = 377.000000000000000000
+    Position.Y = 277.000000000000000000
+    Size.Width = 73.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.FontColor = claSpringgreen
+    TextSettings.HorzAlign = Center
+    Text = '100'
+    TabOrder = 4
   end
 end
