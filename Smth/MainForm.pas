@@ -15,6 +15,7 @@ type
     Frame31: TFrame3;
     Frame11: TPlayersFrame;
     GameFrame1: TGameFrame;
+    Timer: TTimer;
     procedure GameStart;
     procedure Frame21Button2Click(Sender: TObject);
     procedure Frame31Button2Click(Sender: TObject);
@@ -25,6 +26,7 @@ type
     procedure Frame11Button3Click(Sender: TObject);
     procedure GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
       var KeyChar: WideChar; Shift: TShiftState);
+    procedure TimerTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -198,6 +200,7 @@ procedure TForm1.GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = vkReturn then
   begin
+    GameFrame1.Edit1.Enabled := false;
     S := GameFrame1.Edit1.Text;
     S := Trim(S);
     S := ChangeRegister(S);
@@ -230,6 +233,7 @@ begin
       Inc(CurrPlayer)
     else
       CurrPlayer := 1;
+    Timer.Enabled := true;
   end;
 end;
 
@@ -304,6 +308,14 @@ begin
   for i := 1 to PlayerCount do
     if Score[i] = Max then
       Writeln('Игрок ', i, ' победил!');}
+end;
+
+procedure TForm1.TimerTimer(Sender: TObject);
+begin
+  Timer.Enabled := false;
+  GameFrame1.Edit1.Text := '';
+  GameFrame1.Player.Text := 'Игрок ' + IntToStr(CurrPlayer) + ':';
+  GameFrame1.Edit1.Enabled := true;
 end;
 
 procedure TForm1.Frame11Button1Click(Sender: TObject);
