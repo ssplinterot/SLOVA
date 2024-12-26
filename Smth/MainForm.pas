@@ -116,8 +116,8 @@ begin
       else
         Place := Place + Step;
     end;
-  until result or (Step = 2);
-  if not result then
+  until result or (Step = 2) or (Place < 0) or (Place > 1532629);
+  if (not result) and not ((Place < 0) or (Place > 1532629)) then
   begin
     Step := 1;
     if Dictionary[Place] = Word then
@@ -277,7 +277,7 @@ begin
     for i := 1 to PlayerCount do
       if Score[i] = Max then
       begin
-        GameFrame1.Player.Text := GameFrame1.Player.Text + IntToStr(i)+'   ';
+        GameFrame1.Player.Text := GameFrame1.Player.Text + IntToStr(i) + '   ';
         GameFrame1.MessageLabel.Text := 'Победил(-и)!';
       end;
   end
