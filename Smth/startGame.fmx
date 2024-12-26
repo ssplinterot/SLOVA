@@ -43,13 +43,12 @@ object GameFrame: TGameFrame
   end
   object SourceWord: TLabel
     StyledSettings = [FontColor]
-    Position.X = 121.000000000000000000
-    Position.Y = 56.000000000000000000
-    Size.Width = 400.000000000000000000
+    Position.Y = 57.000000000000000000
+    Size.Width = 640.000000000000000000
     Size.Height = 57.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Family = 'Arial'
-    TextSettings.Font.Size = 60.000000000000000000
+    TextSettings.Font.Size = 45.000000000000000000
     TextSettings.Font.StyleExt = {00070000000000000004000000}
     TextSettings.HorzAlign = Center
     Text = #1057#1051#1054#1042#1054

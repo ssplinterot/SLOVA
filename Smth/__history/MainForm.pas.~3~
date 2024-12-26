@@ -1,0 +1,139 @@
+unit MainForm;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  startGame, PlayersSelector, GameMenu, Help, FMX.Controls.Presentation,
+  FMX.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Frame21: TFrame2;
+    Frame31: TFrame3;
+    Frame11: TPlayersFrame;
+    GameFrame1: TGameFrame;
+    procedure GameStart;
+    procedure Frame21Button2Click(Sender: TObject);
+    procedure Frame31Button2Click(Sender: TObject);
+    procedure Frame11Button4Click(Sender: TObject);
+    procedure Frame21Button1Click(Sender: TObject);
+    procedure Frame11Button2Click(Sender: TObject);
+    procedure Frame11Button1Click(Sender: TObject);
+    procedure Frame11Button3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+const
+  DictSize = 1532629;
+
+var
+  Form1: TForm1;
+  GameStarted: boolean;
+  S, Source: string;
+  Dictionary, UsedWords: array of string;
+
+implementation
+
+{$R *.fmx}
+
+procedure GetDictionary(var Dictionary: array of string; Name: string);
+var
+  Txt: TextFile;
+  i: integer;
+begin
+  AssignFile(Txt, Name);
+  Reset(Txt);
+  i := 0;
+  while not EOF(Txt) do
+  begin
+    Readln(Txt, Dictionary[i]);
+    Inc(i);
+  end;
+end;
+
+function GetRandomWord(const Dictionary: array of string;
+  MinLength: integer): string;
+var
+  Number, i: integer;
+begin
+  if MinLength < 30 then
+  begin
+    Number := Random(Length(Dictionary));
+    if Number > Length(Dictionary) then
+      i := -1
+    else
+      i := 1;
+    while Length(Dictionary[Number]) < MinLength do
+      Number := Number + i;
+    result := Dictionary[Number];
+  end
+  else
+    result := 'Нет-таких-больших-слов-кринжуля';
+end;
+
+procedure TForm1.GameStart;
+begin
+  SetLength(Dictionary, DictSize);
+  GetDictionary(Dictionary, 'Dictionary.txt');
+  Randomize;
+  Source := GetRandomWord(Dictionary, 10);
+  GameFrame1.SourceWord.Text := Source;
+end;
+
+{procedure TForm1.UpdatePlayerLabel;
+begin
+
+end; }
+
+procedure TForm1.Frame11Button1Click(Sender: TObject);
+begin
+  GameFrame1.Visible := True;
+  Frame11.Visible := False;
+  GameStart;
+end;
+
+procedure TForm1.Frame11Button2Click(Sender: TObject);
+begin
+  GameFrame1.Visible := True;
+  Frame11.Visible := False;
+  GameStart;
+end;
+
+procedure TForm1.Frame11Button3Click(Sender: TObject);
+begin
+  GameFrame1.Visible := True;
+  Frame11.Visible := False;
+  GameStart;
+end;
+
+procedure TForm1.Frame11Button4Click(Sender: TObject);
+begin
+  Frame21.Visible := True;
+  Frame11.Visible := False;
+end;
+
+procedure TForm1.Frame21Button1Click(Sender: TObject);
+begin
+  Frame11.Visible := True;
+  Frame21.Visible := False;
+end;
+
+procedure TForm1.Frame21Button2Click(Sender: TObject);
+begin
+  Frame31.Visible := True;
+  Frame21.Visible := False;
+end;
+
+procedure TForm1.Frame31Button2Click(Sender: TObject);
+begin
+  Frame21.Visible := True;
+  Frame31.Visible := False;
+end;
+
+end.

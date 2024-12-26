@@ -3,8 +3,7 @@ program ProjectINTERF;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  Interface_PROJECT in 'Interface_PROJECT.pas' {Form1},
-  SecondUnit in 'SecondUnit.pas' {TwoFrame: TFrame};
+  Interface_PROJECT in 'Interface_PROJECT.pas' {Form1};
 
 {$R *.res}
 
