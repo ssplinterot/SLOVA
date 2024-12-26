@@ -273,11 +273,12 @@ begin
     for i := 1 to PlayerCount do
       if Score[i] > Max then
         Max := Score[i];
+    GameFrame1.Player.Text := 'Игрок(-и) ';
     for i := 1 to PlayerCount do
       if Score[i] = Max then
       begin
-        GameFrame1.Player.Text := 'Игрок ' + IntToStr(i) + ':';
-        GameFrame1.MessageLabel.Text := 'Победил!';
+        GameFrame1.Player.Text := GameFrame1.Player.Text + IntToStr(i)+'   ';
+        GameFrame1.MessageLabel.Text := 'Победил(-и)!';
       end;
   end
   else

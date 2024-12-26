@@ -68,6 +68,7 @@ object Form1: TForm1
     Size.PlatformDefault = False
     Visible = False
     inherited Edit1: TEdit
+      AutoSelect = True
       OnKeyDown = GameFrame1Edit1KeyDown
     end
     inherited SourceWord: TLabel
@@ -82,7 +83,7 @@ object Form1: TForm1
   end
   object Timer: TTimer
     Enabled = False
-    Interval = 5000
+    Interval = 3000
     OnTimer = TimerTimer
     Left = 288
     Top = 160
