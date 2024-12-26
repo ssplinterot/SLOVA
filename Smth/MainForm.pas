@@ -37,10 +37,11 @@ const
 var
   Form1: TForm1;
   GameStarted: boolean;
-  PlayerCount, WordCount, Max: integer;
+  PlayerCount, WordCount, Max, CurrPlayer: integer;
   S, Source: string;
   Score, CurrScore: array [1 .. 4] of integer;
   Dictionary, UsedWords: array of string;
+  ScoreLabels: array [1 .. 4] of TLabel;
   Code: byte;
 
 implementation
@@ -194,38 +195,41 @@ end;
 
 procedure TForm1.GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
   var KeyChar: WideChar; Shift: TShiftState);
-var
-  i: integer;
 begin
   if Key = vkReturn then
   begin
-    i := 1;
     S := GameFrame1.Edit1.Text;
     S := Trim(S);
     S := ChangeRegister(S);
     Code := 0;
-    CurrScore[i] := GetScore(S, Source, UsedWords, WordCount, Code);
-    Score[i] := Score[i] + CurrScore[i];
+    CurrScore[CurrPlayer] := GetScore(S, Source, UsedWords, WordCount, Code);
+    Score[CurrPlayer] := Score[CurrPlayer] + CurrScore[CurrPlayer];
+    ScoreLabels[CurrPlayer].Text := IntToStr(Score[CurrPlayer]);
     case Code of
       0:
-        GameFrame1.Player.Text := {'Игрок ', }IntToStr(CurrScore[i])
-        {, ' получает ', CurrScore[i], ' очков'};
+        GameFrame1.Player.Text := 'Правильно! Вы получаете ' +
+          IntToStr(CurrScore[CurrPlayer]) + ' очков';
           // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
       1:
-        Writeln('Игрок ', i, ' пропускает ход');
+        GameFrame1.Player.Text := 'Вы пропустили ход';
       2:
-        Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-          ' очков: такого слова не существует');
+        GameFrame1.Player.Text := 'Такого слова не существует. Вы теряете ' +
+          IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       3:
-        Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-          ' очков: это слово уже использовалось');
+        GameFrame1.Player.Text := 'Это слово уже использовалось. Вы теряете ' +
+          IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       4:
-        Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-          ' очков: это изначальное слово');
+        GameFrame1.Player.Text := 'Это изначальное слово. Вы теряете ' +
+          IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       5:
-        Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-          ' очков: слово содержит неправильные буквы: ', S);
+        GameFrame1.Player.Text :=
+          'Слово содержит неправильные буквы. Вы теряете ' +
+          IntToStr(-CurrScore[CurrPlayer]) + ' очков';
     end;
+    if CurrPlayer < PlayerCount then
+      Inc(CurrPlayer)
+    else
+      CurrPlayer := 1;
   end;
 end;
 
@@ -233,6 +237,11 @@ procedure TForm1.GameStart;
 var
   i, j: integer;
 begin
+  CurrPlayer := 1;
+  ScoreLabels[1] := GameFrame1.Score1;
+  ScoreLabels[2] := GameFrame1.Score2;
+  ScoreLabels[3] := GameFrame1.Score3;
+  ScoreLabels[4] := GameFrame1.Label1;
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
   Randomize;
@@ -242,6 +251,8 @@ begin
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  for i := 1 to PlayerCount do
+    ScoreLabels[i].Visible := true;
   for i := 1 to PlayerCount do
     CurrScore[i] := 1;
     {repeat
@@ -299,7 +310,7 @@ procedure TForm1.Frame11Button1Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
-  PlayerCount:=3;
+  PlayerCount := 3;
   GameStart;
 end;
 
@@ -307,7 +318,7 @@ procedure TForm1.Frame11Button2Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
-  PlayerCount:=2;
+  PlayerCount := 2;
   GameStart;
 end;
 
@@ -315,7 +326,7 @@ procedure TForm1.Frame11Button3Click(Sender: TObject);
 begin
   GameFrame1.Visible := true;
   Frame11.Visible := false;
-  PlayerCount:=4;
+  PlayerCount := 4;
   GameStart;
 end;
 
