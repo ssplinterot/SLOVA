@@ -199,6 +199,7 @@ var
 begin
   if Key = vkReturn then
   begin
+    i := 1;
     S := GameFrame1.Edit1.Text;
     S := Trim(S);
     S := ChangeRegister(S);
@@ -207,7 +208,8 @@ begin
     Score[i] := Score[i] + CurrScore[i];
     case Code of
       0:
-        GameFrame1.Player.Text := {'Игрок ', }IntToStr(CurrScore[i]){, ' получает ', CurrScore[i], ' очков'};
+        GameFrame1.Player.Text := {'Игрок ', }IntToStr(CurrScore[i])
+        {, ' получает ', CurrScore[i], ' очков'};
           // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
       1:
         Writeln('Игрок ', i, ' пропускает ход');

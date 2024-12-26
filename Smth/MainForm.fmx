@@ -46,7 +46,6 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 360.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     inherited Label1: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
@@ -67,6 +66,7 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 360.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     inherited Edit1: TEdit
       Position.Y = 219.000000000000000000
       OnKeyDown = GameFrame1Edit1KeyDown

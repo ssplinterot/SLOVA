@@ -47,6 +47,7 @@ end;
 function CheckWord(const Dictionary: array of string; Word: string): boolean;
 var
   Place, Step: integer;
+  DebugWord: string;
 begin
   result := false;
   Step := Length(Dictionary) div 2;
@@ -61,12 +62,13 @@ begin
         Place := Place - Step
       else
         Place := Place + Step;
+      DebugWord := Dictionary[Place];
     end;
   until result or (Step = 2);
   if not result then
   begin
     Step := 1;
-    if Dictionary[Place] = Word then
+    if ChangeRegister(Dictionary[Place]) = Word then
       result := true
     else
     begin
