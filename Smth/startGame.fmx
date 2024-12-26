@@ -1,0 +1,72 @@
+object GameFrame: TGameFrame
+  Size.Width = 640.000000000000000000
+  Size.Height = 360.000000000000000000
+  Size.PlatformDefault = False
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 0
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 30.000000000000000000
+    Position.X = 121.000000000000000000
+    Position.Y = 227.000000000000000000
+    Size.Width = 400.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TextPrompt = #1042#1074#1077#1076#1080#1090#1077' '#1089#1083#1086#1074#1086'...'
+    StyledSettings = [Style, FontColor]
+  end
+  object Scores: TLabel
+    StyledSettings = [Style, FontColor]
+    Position.X = 8.000000000000000000
+    Position.Y = 288.000000000000000000
+    Size.Width = 49.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.HorzAlign = Center
+    Text = '10'
+    TabOrder = 4
+  end
+  object Player: TLabel
+    StyledSettings = [Style, FontColor]
+    Position.X = 199.000000000000000000
+    Position.Y = 152.000000000000000000
+    Size.Width = 241.000000000000000000
+    Size.Height = 51.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.HorzAlign = Center
+    Text = #1048#1075#1088#1086#1082' 1:'
+    TabOrder = 3
+  end
+  object SourceWord: TLabel
+    StyledSettings = [FontColor]
+    Position.X = 121.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 400.000000000000000000
+    Size.Height = 57.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 60.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = #1057#1051#1054#1042#1054
+    TabOrder = 2
+  end
+  object SourceLabel: TLabel
+    StyledSettings = [FontColor]
+    Position.X = 121.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 400.000000000000000000
+    Size.Height = 57.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 40.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = #1042#1072#1096#1077' '#1089#1083#1086#1074#1086':'
+    TabOrder = 1
+  end
+end
