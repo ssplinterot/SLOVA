@@ -261,15 +261,6 @@ begin
     ScoreLabels[i].Visible := true;
   for i := 1 to PlayerCount do
     CurrScore[i] := 1;
-   {
-  until
-  Max := 0;
-  for i := 1 to PlayerCount do
-    if Score[i] > Max then
-      Max := Score[i];
-  for i := 1 to PlayerCount do
-    if Score[i] = Max then
-      Writeln('Игрок ', i, ' победил!');}
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);

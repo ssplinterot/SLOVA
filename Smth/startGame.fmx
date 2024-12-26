@@ -27,7 +27,7 @@ object GameFrame: TGameFrame
     TextSettings.Font.Size = 40.000000000000000000
     TextSettings.FontColor = claTomato
     TextSettings.HorzAlign = Center
-    Text = '100'
+    Text = '0'
     Visible = False
     TabOrder = 8
   end
@@ -83,7 +83,7 @@ object GameFrame: TGameFrame
     TextSettings.Font.Size = 40.000000000000000000
     TextSettings.FontColor = claRoyalblue
     TextSettings.HorzAlign = Center
-    Text = '100'
+    Text = '0'
     Visible = False
     TabOrder = 7
   end
@@ -99,7 +99,7 @@ object GameFrame: TGameFrame
     TextSettings.Font.Size = 40.000000000000000000
     TextSettings.FontColor = claGold
     TextSettings.HorzAlign = Center
-    Text = '100'
+    Text = '0'
     Visible = False
     TabOrder = 6
   end
@@ -115,7 +115,7 @@ object GameFrame: TGameFrame
     TextSettings.Font.Size = 40.000000000000000000
     TextSettings.FontColor = claSpringgreen
     TextSettings.HorzAlign = Center
-    Text = '100'
+    Text = '0'
     Visible = False
     TabOrder = 5
   end
