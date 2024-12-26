@@ -4,17 +4,11 @@ Coordinates=158,78,114,58
 [Frame11.Button1]
 Coordinates=513,214,114,58
 
-[GameFrame1.SourceWord]
-Coordinates=146,146,168,58
-
 [Frame21]
 Coordinates=501,282,66,36
 
 [Frame21.Label1]
 Coordinates=277,214,108,58
-
-[GameFrame1.Score1]
-Coordinates=428,10,138,58
 
 [Frame11.Button4]
 Coordinates=448,146,114,58
@@ -28,24 +22,14 @@ Coordinates=10,282,108,58
 [Frame31.Label1]
 Coordinates=395,214,108,58
 
-[GameFrame1.Player]
-Coordinates=134,214,133,58
-
 [Frame21.Button1]
 Coordinates=304,10,114,58
 
 [Frame11]
 Coordinates=425,282,66,36
 
-[GameFrame1.SourceLabel]
-Coordinates=282,78,169,58
-
 [Frame21.Button2]
 Coordinates=461,78,114,58
-
-[GameFrame1]
-Coordinates=322,282,93,36
-Visible=True
 
 [Frame31.Button2]
 Coordinates=10,214,114,58
@@ -55,15 +39,6 @@ Coordinates=324,146,114,58
 
 [Frame31]
 Coordinates=246,282,66,36
-
-[GameFrame1.Edit1]
-Coordinates=10,146,126,58
-
-[GameFrame1.Score3]
-Coordinates=156,10,138,58
-
-[GameFrame1.Score2]
-Coordinates=10,78,138,58
 
 [GameFrame1.Label1]
 Coordinates=10,10,136,58

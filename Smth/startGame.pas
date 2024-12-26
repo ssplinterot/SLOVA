@@ -15,8 +15,9 @@ type
     SourceWord: TLabel;
     SourceLabel: TLabel;
     Score2: TLabel;
+    Score4: TLabel;
     Score3: TLabel;
-    Label1: TLabel;
+    MessageLabel: TLabel;
   private
     { Private declarations }
   public

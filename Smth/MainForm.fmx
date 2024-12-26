@@ -16,7 +16,6 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 360.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     inherited Label1: TLabel
       Align = None
       Anchors = [akTop]
@@ -46,6 +45,7 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 360.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     inherited Label1: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
@@ -68,21 +68,16 @@ object Form1: TForm1
     Size.PlatformDefault = False
     Visible = False
     inherited Edit1: TEdit
-      Position.Y = 219.000000000000000000
       OnKeyDown = GameFrame1Edit1KeyDown
     end
-    inherited Score1: TLabel
-      Size.Width = 49.000000000000000000
-    end
-    inherited Player: TLabel
-      Position.Y = 160.000000000000000000
-    end
     inherited SourceWord: TLabel
-      Position.X = -8.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
     inherited SourceLabel: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
+    end
+    inherited MessageLabel: TLabel
+      TextSettings.Font.Size = 20.000000000000000000
     end
   end
   object Timer: TTimer

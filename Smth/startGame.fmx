@@ -28,12 +28,13 @@ object GameFrame: TGameFrame
     TextSettings.FontColor = claTomato
     TextSettings.HorzAlign = Center
     Text = '100'
-    TabOrder = 7
+    Visible = False
+    TabOrder = 8
   end
   object Player: TLabel
     StyledSettings = [Style, FontColor]
     Position.X = 199.000000000000000000
-    Position.Y = 152.000000000000000000
+    Position.Y = 112.000000000000000000
     Size.Width = 241.000000000000000000
     Size.Height = 51.000000000000000000
     Size.PlatformDefault = False
@@ -41,7 +42,7 @@ object GameFrame: TGameFrame
     TextSettings.Font.Size = 40.000000000000000000
     TextSettings.HorzAlign = Center
     Text = #1048#1075#1088#1086#1082' 1:'
-    TabOrder = 3
+    TabOrder = 4
   end
   object SourceWord: TLabel
     StyledSettings = [FontColor]
@@ -83,9 +84,10 @@ object GameFrame: TGameFrame
     TextSettings.FontColor = claRoyalblue
     TextSettings.HorzAlign = Center
     Text = '100'
-    TabOrder = 6
+    Visible = False
+    TabOrder = 7
   end
-  object Score3: TLabel
+  object Score4: TLabel
     Anchors = [akLeft, akBottom]
     StyledSettings = [Style]
     Position.X = 559.000000000000000000
@@ -98,9 +100,10 @@ object GameFrame: TGameFrame
     TextSettings.FontColor = claGold
     TextSettings.HorzAlign = Center
     Text = '100'
-    TabOrder = 5
+    Visible = False
+    TabOrder = 6
   end
-  object Label1: TLabel
+  object Score3: TLabel
     Anchors = [akLeft, akBottom]
     StyledSettings = [Style]
     Position.X = 377.000000000000000000
@@ -113,6 +116,19 @@ object GameFrame: TGameFrame
     TextSettings.FontColor = claSpringgreen
     TextSettings.HorzAlign = Center
     Text = '100'
-    TabOrder = 4
+    Visible = False
+    TabOrder = 5
+  end
+  object MessageLabel: TLabel
+    StyledSettings = [Style, FontColor]
+    Position.X = 8.000000000000000000
+    Position.Y = 168.000000000000000000
+    Size.Width = 624.000000000000000000
+    Size.Height = 51.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 30.000000000000000000
+    TextSettings.HorzAlign = Center
+    TabOrder = 3
   end
 end

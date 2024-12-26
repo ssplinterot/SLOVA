@@ -14,8 +14,8 @@ type
     Frame21: TFrame2;
     Frame31: TFrame3;
     Frame11: TPlayersFrame;
-    GameFrame1: TGameFrame;
     Timer: TTimer;
+    GameFrame1: TGameFrame;
     procedure GameStart;
     procedure Frame21Button2Click(Sender: TObject);
     procedure Frame31Button2Click(Sender: TObject);
@@ -210,22 +210,24 @@ begin
     ScoreLabels[CurrPlayer].Text := IntToStr(Score[CurrPlayer]);
     case Code of
       0:
-        GameFrame1.Player.Text := 'Правильно! Вы получаете ' +
+        GameFrame1.MessageLabel.Text := 'Правильно! Вы получаете ' +
           IntToStr(CurrScore[CurrPlayer]) + ' очков';
           // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
       1:
-        GameFrame1.Player.Text := 'Вы пропустили ход';
+        GameFrame1.MessageLabel.Text := 'Вы пропустили ход';
       2:
-        GameFrame1.Player.Text := 'Такого слова не существует. Вы теряете ' +
+        GameFrame1.MessageLabel.Text :=
+          'Такого слова не существует. Вы теряете ' +
           IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       3:
-        GameFrame1.Player.Text := 'Это слово уже использовалось. Вы теряете ' +
+        GameFrame1.MessageLabel.Text :=
+          'Это слово уже использовалось. Вы теряете ' +
           IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       4:
-        GameFrame1.Player.Text := 'Это изначальное слово. Вы теряете ' +
+        GameFrame1.MessageLabel.Text := 'Это изначальное слово. Вы теряете ' +
           IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       5:
-        GameFrame1.Player.Text :=
+        GameFrame1.MessageLabel.Text :=
           'Слово содержит неправильные буквы. Вы теряете ' +
           IntToStr(-CurrScore[CurrPlayer]) + ' очков';
     end;
@@ -245,7 +247,7 @@ begin
   ScoreLabels[1] := GameFrame1.Score1;
   ScoreLabels[2] := GameFrame1.Score2;
   ScoreLabels[3] := GameFrame1.Score3;
-  ScoreLabels[4] := GameFrame1.Label1;
+  ScoreLabels[4] := GameFrame1.Score4;
   SetLength(Dictionary, DictSize);
   GetDictionary(Dictionary, 'Dictionary.txt');
   Randomize;
@@ -259,48 +261,8 @@ begin
     ScoreLabels[i].Visible := true;
   for i := 1 to PlayerCount do
     CurrScore[i] := 1;
-    {repeat
-    i := 1;
-    while (i <= PlayerCount) and not((CurrScore[1] = 0) and (CurrScore[2] = 0)
-      and (CurrScore[3] = 0) and (CurrScore[4] = 0)) do
-    begin
-      S := Trim(S);
-      S := ChangeRegister(S);
-      Code := 0;
-      CurrScore[i] := GetScore(S, Source, UsedWords, WordCount, Code);
-      Score[i] := Score[i] + CurrScore[i];
-      case Code of
-        0:
-          Writeln('Игрок ', i, ' получает ', CurrScore[i], ' очков');
-          // Коды: 0 - всё ок, 1 - пустая строка, 2 - слова не существует, 3 - повторка, 4 - изначальное, 5 - не те буквы
-        1:
-          Writeln('Игрок ', i, ' пропускает ход');
-        2:
-          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-            ' очков: такого слова не существует');
-        3:
-          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-            ' очков: это слово уже использовалось');
-        4:
-          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-            ' очков: это изначальное слово');
-        5:
-          Writeln('Игрок ', i, ' теряет ', -CurrScore[i],
-            ' очков: слово содержит неправильные буквы: ', S);
-      end;
-      if i < PlayerCount then
-        Inc(i)
-      else
-      begin
-        i := 1;
-        Write('Очки: ');
-        for j := 1 to PlayerCount do
-          Write(Score[j], ' ');
-        Writeln;
-      end
-    end;
-  until (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
-    (CurrScore[4] = 0);
+   {
+  until
   Max := 0;
   for i := 1 to PlayerCount do
     if Score[i] > Max then
@@ -311,11 +273,31 @@ begin
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
+var
+  i: integer;
 begin
-  Timer.Enabled := false;
-  GameFrame1.Edit1.Text := '';
-  GameFrame1.Player.Text := 'Игрок ' + IntToStr(CurrPlayer) + ':';
-  GameFrame1.Edit1.Enabled := true;
+  if (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
+    (CurrScore[4] = 0) then
+  begin
+    for i := 1 to PlayerCount do
+      if Score[i] > Max then
+        Max := Score[i];
+    for i := 1 to PlayerCount do
+      if Score[i] = Max then
+      begin
+        GameFrame1.Player.Text := 'Игрок ' + IntToStr(i) + ':';
+        GameFrame1.MessageLabel.Text := 'Победил!';
+      end;
+  end
+  else
+  begin
+    Timer.Enabled := false;
+    GameFrame1.Edit1.Text := '';
+    GameFrame1.Player.Text := 'Игрок ' + IntToStr(CurrPlayer) + ':';
+    GameFrame1.MessageLabel.Text := '';
+    GameFrame1.Edit1.Enabled := true;
+  end;
+
 end;
 
 procedure TForm1.Frame11Button1Click(Sender: TObject);
