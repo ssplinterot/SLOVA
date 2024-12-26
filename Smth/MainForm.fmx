@@ -71,11 +71,23 @@ object Form1: TForm1
       AutoSelect = True
       OnKeyDown = GameFrame1Edit1KeyDown
     end
+    inherited Score1: TLabel
+      Text = '0'
+    end
     inherited SourceWord: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
     inherited SourceLabel: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
+    end
+    inherited Score2: TLabel
+      Text = '0'
+    end
+    inherited Score4: TLabel
+      Text = '0'
+    end
+    inherited Score3: TLabel
+      Text = '0'
     end
     inherited MessageLabel: TLabel
       TextSettings.Font.Size = 20.000000000000000000
