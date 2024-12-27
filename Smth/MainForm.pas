@@ -367,8 +367,6 @@ begin
 end;
 
 procedure TForm1.Frame31Button2Click(Sender: TObject);
-var
-  i: integer;
 begin
   Form1.Timer.Enabled := false;
   Form1.Fill.Color := $FFFFFFFF;
