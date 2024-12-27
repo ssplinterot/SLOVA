@@ -7,7 +7,7 @@ uses
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   startGame, PlayersSelector, GameMenu, Help, FMX.Controls.Presentation,
-  FMX.StdCtrls;
+  FMX.StdCtrls, FMX.Objects;
 
 type
   TForm1 = class(TForm)
@@ -16,6 +16,11 @@ type
     Frame11: TPlayersFrame;
     Timer: TTimer;
     GameFrame1: TGameFrame;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    ProgressBar1: TProgressBar;
     procedure GameStart;
     procedure Frame21Button2Click(Sender: TObject);
     procedure Frame31Button2Click(Sender: TObject);
@@ -27,6 +32,7 @@ type
     procedure GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
       var KeyChar: WideChar; Shift: TShiftState);
     procedure TimerTimer(Sender: TObject);
+   // procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -194,6 +200,17 @@ begin
     end;
   end;
 end;
+{procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  if ProgressBar1.Position < ProgressBar1.Max then
+  begin
+    ProgressBar1.Position := ProgressBar1.Position + 1;
+  end
+  else
+  begin
+    Timer.Enabled := False; // Остановить таймер, когда прогресс-бар заполнен
+  end;
+end; }
 
 procedure TForm1.GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
   var KeyChar: WideChar; Shift: TShiftState);
@@ -236,8 +253,10 @@ begin
     else
       CurrPlayer := 1;
     Timer.Enabled := true;
+    //TForm1.Timer1Timer(Timer);
   end;
 end;
+
 
 procedure TForm1.GameStart;
 var
@@ -262,6 +281,7 @@ begin
   for i := 1 to PlayerCount do
     CurrScore[i] := 1;
 end;
+
 
 procedure TForm1.TimerTimer(Sender: TObject);
 var
