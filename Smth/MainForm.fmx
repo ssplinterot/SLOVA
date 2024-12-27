@@ -7465,7 +7465,6 @@ object Form1: TForm1
       Position.X = 130.000000000000000000
       Position.Y = 104.000000000000000000
       Size.Width = 379.000000000000000000
-      TabOrder = 5
     end
     inherited SourceWord: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -7490,7 +7489,7 @@ object Form1: TForm1
     inherited MessageLabel: TLabel
       Position.Y = 163.000000000000000000
       TextSettings.Font.Size = 20.000000000000000000
-      TabOrder = 4
+      TabOrder = 5
     end
     object Button2: TButton
       StyledSettings = [Style, FontColor]

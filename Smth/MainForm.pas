@@ -277,7 +277,7 @@ begin
   Source := GetRandomWord(Dictionary, 10);
   GameFrame1.SourceWord.Text := Source;
   Source := ChangeRegister(Source);
-  SetLength(UsedWords, PlayerCount * Length(Source));
+  SetLength(UsedWords, PlayerCount * Length(Source) * 10);
   UsedWords[0] := Source;
   WordCount := 1;
   Timer.Enabled := false;

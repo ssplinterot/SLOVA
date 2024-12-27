@@ -4,6 +4,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 464
   ClientWidth = 640
+  Fill.Kind = Solid
   Position = Designed
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -16,7 +17,6 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 464.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     inherited Label1: TLabel
       Align = None
       Anchors = [akTop]
@@ -834,14 +834,18 @@ object Form1: TForm1
       end
     end
     inherited Button1: TButton
-      Align = Center
+      Position.X = 209.000000000000000000
+      Position.Y = 225.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 72.000000000000000000
+      Text = #1048#1075#1088#1072#1090#1100
       OnClick = Frame21Button1Click
     end
     inherited Button2: TButton
-      Position.X = 192.000000000000000000
-      Position.Y = 287.000000000000000000
-      Size.Width = 265.000000000000000000
-      Size.Height = 58.000000000000000000
+      Position.X = 209.000000000000000000
+      Position.Y = 320.000000000000000000
+      Size.Width = 238.000000000000000000
+      Size.Height = 73.000000000000000000
       Text = #1055#1088#1072#1074#1080#1083#1072
       OnClick = Frame21Button2Click
     end
@@ -7448,18 +7452,59 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 360.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     inherited Edit1: TEdit
       AutoSelect = True
       OnKeyDown = GameFrame1Edit1KeyDown
     end
+    inherited Score1: TLabel
+      Visible = True
+      TabOrder = 9
+    end
+    inherited Player: TLabel
+      Position.X = 130.000000000000000000
+      Position.Y = 104.000000000000000000
+      Size.Width = 379.000000000000000000
+      TabOrder = 5
+    end
     inherited SourceWord: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TabOrder = 3
     end
     inherited SourceLabel: TLabel
       TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TabOrder = 2
+    end
+    inherited Score2: TLabel
+      Visible = True
+      TabOrder = 8
+    end
+    inherited Score4: TLabel
+      Visible = True
+      TabOrder = 7
+    end
+    inherited Score3: TLabel
+      Visible = True
+      TabOrder = 6
     end
     inherited MessageLabel: TLabel
+      Position.Y = 163.000000000000000000
       TextSettings.Font.Size = 20.000000000000000000
+      TabOrder = 4
+    end
+    object Button2: TButton
+      StyledSettings = [Style, FontColor]
+      Position.X = 16.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 60.000000000000000000
+      Size.Height = 60.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = '<'
+      TextSettings.Font.Family = 'Arial'
+      TextSettings.Font.Size = 48.000000000000000000
+      TextSettings.Trimming = None
+      OnClick = Frame31Button2Click
     end
   end
   object Timer: TTimer
@@ -7475,5 +7520,12 @@ object Form1: TForm1
     Size.Width = 640.000000000000000000
     Size.Height = 20.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
+  end
+  object ColorAnimation1: TColorAnimation
+    Duration = 0.200000002980232200
+    PropertyName = 'Fill.Color'
+    StartValue = claWhite
+    StopValue = claWhite
   end
 end
