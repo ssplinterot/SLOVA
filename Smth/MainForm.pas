@@ -271,7 +271,6 @@ begin
   for i := 1 to 4 do
   begin
     Score[i] := 0;
-    CurrScore[i] := 1;
     ScoreLabels[i].Visible := false;
     ScoreLabels[i].Text := '0';
   end;
@@ -289,7 +288,10 @@ begin
   Form1.Fill.Color := PlayerColors[CurrPlayer];
   GameFrame1.Edit1.Enabled := true;
   for i := 1 to PlayerCount do
+  begin
+    CurrScore[i] := 1;
     ScoreLabels[i].Visible := true;
+  end;
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
