@@ -236,9 +236,8 @@ begin
         GameFrame1.MessageLabel.Text := 'Это изначальное слово. Вы теряете ' +
           IntToStr(-CurrScore[CurrPlayer]) + ' очков';
       5:
-        GameFrame1.MessageLabel.Text :=
-          'Слово содержит неправильные буквы. Вы теряете ' +
-          IntToStr(-CurrScore[CurrPlayer]) + ' очков';
+        GameFrame1.MessageLabel.Text := 'Слово содержит неправильные буквы: ' +
+          S + '. Вы теряете ' + IntToStr(-CurrScore[CurrPlayer]) + ' очков';
     end;
     if CurrPlayer < PlayerCount then
       Inc(CurrPlayer)

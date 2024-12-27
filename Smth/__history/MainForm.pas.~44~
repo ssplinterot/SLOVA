@@ -7,7 +7,7 @@ uses
   System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   startGame, PlayersSelector, GameMenu, Help, FMX.Controls.Presentation,
-  FMX.StdCtrls, FMX.Objects;
+  FMX.StdCtrls, FMX.Objects, FMX.Colors, FMX.Ani;
 
 type
   TForm1 = class(TForm)
@@ -22,6 +22,7 @@ type
     Image4: TImage;
     ProgressBar1: TProgressBar;
     Button2: TButton;
+    ColorAnimation1: TColorAnimation;
     procedure GameStart;
     procedure Frame21Button2Click(Sender: TObject);
     procedure Frame31Button2Click(Sender: TObject);
@@ -45,12 +46,13 @@ const
 
 var
   Form1: TForm1;
-  DictionaryInitialized: boolean;
+  GameInitialized: boolean;
   PlayerCount, WordCount, Max, CurrPlayer: integer;
   S, Source: string;
   Score, CurrScore: array [1 .. 4] of integer;
   Dictionary, UsedWords: array of string;
   ScoreLabels: array [1 .. 4] of TLabel;
+  PlayerColors: array [1 .. 4] of TAlphaColor;
   Code: byte;
 
 implementation
@@ -201,17 +203,6 @@ begin
     end;
   end;
 end;
-{procedure TForm1.Timer1Timer(Sender: TObject);
-begin
-  if ProgressBar1.Position < ProgressBar1.Max then
-  begin
-    ProgressBar1.Position := ProgressBar1.Position + 1;
-  end
-  else
-  begin
-    Timer.Enabled := False; // Остановить таймер, когда прогресс-бар заполнен
-  end;
-end; }
 
 procedure TForm1.GameFrame1Edit1KeyDown(Sender: TObject; var Key: Word;
   var KeyChar: WideChar; Shift: TShiftState);
@@ -254,36 +245,53 @@ begin
     else
       CurrPlayer := 1;
     Timer.Enabled := true;
-    //TForm1.Timer1Timer(Timer);
   end;
 end;
 
 procedure TForm1.GameStart;
 var
-  i, j: integer;
+  i: integer;
 begin
   CurrPlayer := 1;
-  ScoreLabels[1] := GameFrame1.Score1;
-  ScoreLabels[2] := GameFrame1.Score2;
-  ScoreLabels[3] := GameFrame1.Score3;
-  ScoreLabels[4] := GameFrame1.Score4;
-  if not DictionaryInitialized then
+  if not GameInitialized then
   begin
+    ScoreLabels[1] := GameFrame1.Score1;
+    ScoreLabels[2] := GameFrame1.Score2;
+    ScoreLabels[3] := GameFrame1.Score3;
+    ScoreLabels[4] := GameFrame1.Score4;
+    PlayerColors[1] := $FFFFDDDD;
+    PlayerColors[2] := $FFDDDDFF;
+    PlayerColors[3] := $FFDDFFDD;
+    PlayerColors[4] := $FFFFFFBB;
     SetLength(Dictionary, DictSize);
     GetDictionary(Dictionary, 'Dictionary.txt');
     Randomize;
-    DictionaryInitialized := true;
+    GameInitialized := true;
   end;
+  for i := 1 to 4 do
+  begin
+    Score[i] := 0;
+    ScoreLabels[i].Visible := false;
+    ScoreLabels[i].Text := '0';
+  end;
+  Delete(UsedWords, 0, Length(UsedWords));
   Source := GetRandomWord(Dictionary, 10);
   GameFrame1.SourceWord.Text := Source;
   Source := ChangeRegister(Source);
   SetLength(UsedWords, PlayerCount * Length(Source));
   UsedWords[0] := Source;
   WordCount := 1;
+  Timer.Enabled := false;
+  GameFrame1.Edit1.Text := '';
+  GameFrame1.Player.Text := 'Игрок ' + IntToStr(CurrPlayer) + ':';
+  GameFrame1.MessageLabel.Text := '';
+  Form1.Fill.Color := PlayerColors[CurrPlayer];
+  GameFrame1.Edit1.Enabled := true;
   for i := 1 to PlayerCount do
-    ScoreLabels[i].Visible := true;
-  for i := 1 to PlayerCount do
+  begin
     CurrScore[i] := 1;
+    ScoreLabels[i].Visible := true;
+  end;
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
@@ -293,6 +301,7 @@ begin
   if (CurrScore[1] = 0) and (CurrScore[2] = 0) and (CurrScore[3] = 0) and
     (CurrScore[4] = 0) then
   begin
+    Max := Score[1];
     for i := 1 to PlayerCount do
       if Score[i] > Max then
         Max := Score[i];
@@ -310,6 +319,7 @@ begin
     GameFrame1.Edit1.Text := '';
     GameFrame1.Player.Text := 'Игрок ' + IntToStr(CurrPlayer) + ':';
     GameFrame1.MessageLabel.Text := '';
+    Form1.Fill.Color := PlayerColors[CurrPlayer];
     GameFrame1.Edit1.Enabled := true;
   end;
 
@@ -358,7 +368,11 @@ begin
 end;
 
 procedure TForm1.Frame31Button2Click(Sender: TObject);
+var
+  i: integer;
 begin
+  Form1.Timer.Enabled := false;
+  Form1.Fill.Color := $FFFFFFFF;
   Frame21.Visible := true;
   GameFrame1.Visible := false;
   Frame31.Visible := false;
