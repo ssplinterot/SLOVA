@@ -1,0 +1,41 @@
+object Frame3: TFrame3
+  Size.Width = 640.000000000000000000
+  Size.Height = 360.000000000000000000
+  Size.PlatformDefault = False
+  object Label1: TLabel
+    Anchors = [akTop]
+    StyledSettings = [FontColor]
+    Size.Width = 640.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 56.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = #1057#1051#1054#1042#1040
+    TabOrder = 0
+  end
+  object Button2: TButton
+    StyledSettings = [Style, FontColor]
+    Position.X = 16.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 60.000000000000000000
+    Size.Height = 60.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = '<'
+    TextSettings.Font.Family = 'Arial'
+    TextSettings.Font.Size = 48.000000000000000000
+    TextSettings.Trimming = None
+  end
+  object Text1: TText
+    Position.X = 16.000000000000000000
+    Position.Y = 92.000000000000000000
+    Size.Width = 616.000000000000000000
+    Size.Height = 260.000000000000000000
+    Size.PlatformDefault = False
+    Text = 
+      #1042' '#1080#1075#1088#1077' '#1091#1095#1072#1089#1090#1074#1091#1102#1090' '#1086#1090' 2 '#1076#1086' 4 '#1080#1075#1088#1086#1082#1086#1074'. '#1057#1085#1072#1095#1072#1083#1072' '#1086#1087#1088#1077#1076#1077#1083#1103#1077#1090#1077' '#1082#1086#1083#1080#1095#1077#1089#1090 +
+      #1074#1086' '#1080#1075#1088#1086#1082#1086#1074', '#1079#1072#1090#1077#1084' '#1085#1072' '#1101#1082#1088#1072#1085#1077
+  end
+end
